@@ -1,15 +1,21 @@
+import BudgetMensuel from "@/components/BudgetMensuel.vue";
 import Home from "@/components/Home.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: Home,
-    },
-  ],
+	history: createWebHistory(import.meta.env.BASE_URL),
+	routes: [
+		{
+			path: "/",
+			name: "home",
+			component: Home,
+		},
+		{
+			path: "/budget",
+			name: "budgetMensuel",
+			component: BudgetMensuel,
+		},
+	],
 });
 
 export default router;
