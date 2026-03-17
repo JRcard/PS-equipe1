@@ -5,6 +5,7 @@
 			<p>+ 500$</p>
 			<p>{{ data }}</p>
 		</div>
+		<div><button @click="nouveauMois(data)">Nouveau mois</button></div>
 	</div>
 </template>
 
@@ -24,34 +25,22 @@ const useAPI = (url) => {
 	return data;
 };
 const data = useAPI(url);
-/* try {
-		const response = await fetch("https://money-pie-1.fly.dev/api/v1/users/1/transactions", {
-			method: "GET",
-			headers: { "Content-Type": "application/json", Accept: "application/json" },
-			body: JSON.stringify({
-				prenom: user.prenom,
-				nom: user.nom,
-				telephone: user.telephone,
-				email: user.email,
-				password: user.mdp,
-			}),
-		});
 
-		const data = await response.json();
-
-		if (!response.ok) {
-			throw data.message || "Erreur lors de l'inscription";
+const nouveauMois = (data) => {
+	data.forEach((transaction) => {
+		console.log(transaction.id);
+		if (transaction.frequency == -1) {
+			fetch(`${url}/${transaction.id}`, { method: "DELETE" })
+				.then((res) => res.json())
+				.then((json) => console.log(json))
+				.catch((err) => {
+					console.log("Erreur: " + err + " | " + url);
+					return;
+				});
+			console.log(transaction.id + ": delete!");
 		}
-
-		if (data.user) {
-			store.setUser(data.user);
-		}
-
-		return { success: true, data };
-	} catch (err) {
-		store.setError(err);
-		return { success: false, error: err };
-	} */
+	});
+};
 </script>
 
 <style lang="scss"></style>
