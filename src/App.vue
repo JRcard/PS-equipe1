@@ -7,4 +7,4 @@ import Home from './components/Home.vue';
   <RouterView />
 </template>
 
-<style scoped></style>
+<style></style>
