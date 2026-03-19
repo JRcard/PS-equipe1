@@ -5,8 +5,8 @@
 
         <div class="flex justify-between">
             <h2 class="underline">Detail du profil</h2>
-            <button v-if="isDisable" @click="toggleEdit()">Mettre à jour</button>
-            <button v-else @click="handleSubmit()">Enregister</button>
+            <button type="button" v-if="isDisable" @click="toggleEdit()">Mettre à jour</button>
+            <button type="button" v-else @click="handleSubmit()">Enregister</button>
         </div>
         <div>
             <form @submit.prevent="handleSubmit">
@@ -36,7 +36,7 @@
                         <label for="password" hidden>password</label>
                         <input :type="showPassword ? 'password' : 'text'" v-model="userData.password" name="password"
                             id="password" :disabled="isDisable" placeholder="Email">
-                        <button @click="togglePasswordShow">Show Password</button>
+                        <button type="button" @click="togglePasswordShow">Show Password</button>
                     </div>
                 </fieldset>
 
@@ -70,6 +70,7 @@
                             <input type="text" name="country" id="country" v-model="userAdresseOne.country"
                                 :disabled="isDisable" placeholder="country">
                         </div>
+                        <button type="button" @click="delAdressFunction(userAdresseOne.type)">Supprimer</button>
                     </div>
 
                     <div>
@@ -105,6 +106,7 @@
                             <input type="text" name="type" id="type" v-model="userAdresseTwo.type" :disabled="isDisable"
                                 placeholder="type" hidden>
                         </div>
+                        <button type="button" @click="delAdressFunction(userAdresseOne.type)">Supprimer</button>
                     </div>
 
                 </fieldset>
@@ -170,6 +172,7 @@ const userAdresseOne = ref({
     country: "",
     type: "PERSONAL"
 })
+
 const userAdresseTwo = ref({
     streetNumber: "",
     streetName: "",
@@ -187,7 +190,9 @@ const setAddresses = (addresses, data, index) => {
     addresses.value.country = data[index].country
     addresses.value.type = data[index].type
 }
+
 const fetchUserAdresse = async () => {
+
     try {
         const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`)
         if (!response.ok) {
@@ -202,7 +207,30 @@ const fetchUserAdresse = async () => {
     }
 }
 
+const delAdressFunction = async (type) => {
+
+    try {
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses/${type}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Success:', data);
+
+    } catch (err) {
+        console.error('Error:', err);
+    }
+
+}
+
 const putFunction = async (url, dataToSend) => {
+
     try {
         const response = await fetch(url, {
             method: 'PUT',
@@ -223,12 +251,10 @@ const putFunction = async (url, dataToSend) => {
     }
 }
 
-
 const handleSubmit = () => {
     putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}`, userData);
     putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`, userAdresseOne)
     putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`, userAdresseTwo)
-
 }
 
 onMounted(() => {
