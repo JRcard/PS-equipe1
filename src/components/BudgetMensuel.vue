@@ -9,6 +9,7 @@
 		<div>
 			<h2>Budget mensuel</h2>
 			<TableauRevenu :data="revenuList" />
+			<TableauDepense :data="depenseList" />
 		</div>
 	</div>
 </template>
@@ -16,8 +17,10 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import TableauRevenu from "./tableauRevenu.vue";
+import TableauDepense from "./tableauDepense.vue";
 
-const url = "https://money-pie-1.fly.dev/api/v1/users/1/transactions";
+const userId = 1; //window.localStorage.getItem("userId");
+const url = `https://money-pie-1.fly.dev/api/v1/users/${userId}/transactions`;
 const revenuList = ref([]);
 const depenseList = ref([]);
 const data = ref([]);
@@ -29,7 +32,6 @@ const useAPI = (url) => {
 			data.value = json;
 			revenuList.value = json.filter((t) => t.type === "Revenue");
 			depenseList.value = json.filter((t) => t.type === "Expense");
-			console.log(revenuList.value);
 		})
 		.catch((err) => {
 			console.log("Erreur: " + err + " | " + url);
@@ -47,7 +49,6 @@ const nouveauMois = async () => {
 			console.log("Erreur: " + err + " | " + url);
 		}
 	}
-
 	useAPI(url);
 };
 
