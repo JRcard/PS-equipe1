@@ -80,4 +80,4 @@ https://budgetbakers.com/fr/
 export default {};
 </script>
 
-<style scoped></style>
+<style></style>
