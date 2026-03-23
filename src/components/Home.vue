@@ -74,6 +74,37 @@ https://budgetbakers.com/fr/
       </div>
     </div>
   </div>
+
+  <div class="bg-background text-sm/6 flex items-center justify-center">
+    <!-- card-->
+    <div class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-full max-w-md flex flex-col gap-6">
+      <div>
+        <h2 class="text-2xl font-bold mb-1">Connexion</h2>
+        <p class="text-text-secondaire text-sm">Entrez vos informations ci-dessous.</p>
+      </div>
+
+      <!-- imput -->
+      <div class="flex flex-col gap-4">
+        <input type="email" placeholder="Adresse email" class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+        <input type="password" placeholder="Mot de passe" class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+      </div>
+
+      <!-- boutons -->
+      <div class="flex flex-col gap-4 mt-2">
+        <!-- Bouton dégradé-->
+        <button class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-gradient-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Se connecter</button>
+
+        <div class="flex gap-3">
+          <!-- bouton couelur principale -->
+          <button class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-principale hover:opacity-80 hover:shadow-[0_0_15px_#9034b066]">Action 1</button>
+
+          <!-- Bouton couleur secondaire -->
+          <button class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-secondaire hover:opacity-80 hover:shadow-[0_0_15px_#096cfd66]">Action 2</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
