@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
 @theme {
+  /* Tes couleurs de base */
   --color-principale: #9034b0;
   --color-secondaire: #096cfd;
   --color-background: #1d1d1d;
   --color-text: #ffffff;
   --color-text-secondaire: #a0a1a6;
+
+  /* Nouvelles couleurs ajoutées */
+  --color-card: #242424;
+  --color-input-bg: #282828;
+  --color-input-border: #8e8e8e;
 }
 
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
-  background-color: #1d1d1d;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
