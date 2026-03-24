@@ -8,8 +8,10 @@
 		<div><button @click="nouveauMois()">Nouveau mois</button></div>
 		<div>
 			<h2>Budget mensuel</h2>
-			<TableauRevenu :data="revenuList" />
-			<TableauDepense :data="depenseList" />
+			<div class="flex gap-3 justify-center">
+				<TableauRevenu :data="revenuList" />
+				<TableauDepense :data="depenseList" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -19,7 +21,7 @@ import { onMounted, ref } from "vue";
 import TableauRevenu from "./tableauRevenu.vue";
 import TableauDepense from "./tableauDepense.vue";
 
-const userId = 1; //window.localStorage.getItem("userId");
+const userId = 2; //window.localStorage.getItem("userId");
 const url = `https://money-pie-1.fly.dev/api/v1/users/${userId}/transactions`;
 const revenuList = ref([]);
 const depenseList = ref([]);
