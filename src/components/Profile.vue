@@ -58,8 +58,8 @@
                     <div class="flex w-full justify-between">
                         <div
                             class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-[49%] flex flex-col gap-6">
-                            <h2 v-if="userAdresseOne.type == 'PERSONAL'" class="text-2xl font-bold mb-1">Maison</h2>
-                            <h2 v-else class="text-2xl font-bold mb-1">Travail</h2>
+                            <h2 class="text-2xl font-bold mb-1">Maison</h2>
+
 
                             <div>
                                 <label for="streetNumber" hidden>streetNumber</label>
@@ -97,11 +97,7 @@
                                     class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
 
                             </div>
-                            <div>
-                                <label for="type" hidden>type</label>
-                                <input type="text" name="type" id="type" v-model="userAdresseOne.type"
-                                    :disabled="isDisable" placeholder="type" hidden>
-                            </div>
+
                             <button type="button" @click="delAdressFunction(userAdresseOne.type)"
                                 :class="isDisable ? 'hidden' : ''"
                                 class="px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-red-800 hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Supprimer</button>
@@ -110,8 +106,8 @@
                         <div
                             class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-[49%] flex flex-col gap-6">
 
-                            <h2 v-if="userAdresseOne.type == 'PERSONAL'" class="text-2xl font-bold mb-1">Travail</h2>
-                            <h2 v-else class="text-2xl font-bold mb-1">Maison</h2>
+                            <h2 class="text-2xl font-bold mb-1">Travail</h2>
+
                             <div>
                                 <label for="streetNumber" hidden>streetNumber</label>
                                 <input type="text" name="streetNumber" id="streetNumber"
@@ -148,14 +144,26 @@
                                     class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
 
                             </div>
-                            <div>
-                                <label for="type" hidden>type</label>
-                                <input type="text" name="type" id="type" v-model="userAdresseTwo.type"
-                                    :disabled="isDisable" placeholder="type" hidden>
-                            </div>
+
                             <button type="button" @click="delAdressFunction(userAdresseTwo.type)"
                                 :class="isDisable ? 'hidden' : ''"
                                 class="px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-red-800 hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Supprimer</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-[49%] flex flex-col gap-6">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-1">Renseignements scolaires</h2>
+                        <div>
+                            <div>
+                                <label for="streetNumber" hidden>streetNumber</label>
+                                <input type="text" name="streetNumber" id="streetNumber"
+                                    v-model="schoolDetail.schoolName" :disabled="isDisable" placeholder="streetNumber"
+                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
+
+                            </div>
 
                         </div>
                     </div>
@@ -232,37 +240,36 @@ const userAdresseTwo = ref({
     type: "WORK"
 })
 
-const setAddresses = (addresses, data, index) => {
-    addresses.value.streetNumber = data[index].streetNumber
-    addresses.value.streetName = data[index].streetName
-    addresses.value.city = data[index].city
-    addresses.value.province = data[index].province
-    addresses.value.country = data[index].country
-    addresses.value.type = data[index].type
+const schoolDetail = ref({
+    schoolName: "",
+    fieldOfStudy: "",
+    startDate: "",
+    projectedEndDate: ""
+})
+
+const setAddress = (target, data) => {
+    target.value = { ...data };
 }
 
 
 
 const fetchUserAdresse = async () => {
-
     try {
         const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`)
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+
         const data = await response.json();
-        if (data[0].type === "PERSONAL") {
-            setAddresses(userAdresseOne, data, 0)
-            setAddresses(userAdresseTwo, data, 1)
-        } else if (data[0].type === "WORK") {
-            setAddresses(userAdresseOne, data, 1)
-            setAddresses(userAdresseTwo, data, 0)
-        }
 
+        const personal = data.find(a => a.type === "PERSONAL");
+        const work = data.find(a => a.type === "WORK");
 
-        console.log(data)
+        if (personal) setAddress(userAdresseOne, personal);
+        if (work) setAddress(userAdresseTwo, work);
+
     } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
+        console.error(error);
     }
 }
 
@@ -278,6 +285,29 @@ const delAdressFunction = async (type) => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        if (type === "PERSONAL") {
+            userAdresseOne.value = {
+                streetNumber: "",
+                streetName: "",
+                city: "",
+                province: "",
+                country: "",
+                type: "PERSONAL"
+            };
+        }
+
+        if (type === "WORK") {
+            userAdresseTwo.value = {
+                streetNumber: "",
+                streetName: "",
+                city: "",
+                province: "",
+                country: "",
+                type: "WORK"
+            };
+        }
+
+
         fetchUserAdresse()
         const data = await response.json();
         console.log('Success:', data);
@@ -287,6 +317,8 @@ const delAdressFunction = async (type) => {
     }
 
 }
+
+
 
 const putFunction = async (url, dataToSend) => {
     try {
