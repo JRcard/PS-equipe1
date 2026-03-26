@@ -1,243 +1,231 @@
 <template>
-    <div class="w-[90%] m-auto">
-        <button @click="connectUserOne()">Connect User 2</button>
+    <div class="relative isolate bg-background min-h-screen px-6 lg:px-8 pt-24 text-white">
 
-
-        <div class="flex justify-between">
-            <h2 class="underline">Detail du profil</h2>
-            <button type="button" v-if="isDisable" @click="toggleEdit()">Mettre à jour</button>
-            <button type="button" v-else @click="handleSubmit()">Enregister</button>
+        <!-- BLOB TOP -->
+        <div aria-hidden="true"
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+                class="relative left-[calc(50%-11rem)] aspect-1155/678 w-xl rotate-30 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%-30rem)] sm:w-6xl">
+            </div>
         </div>
-        <div class="p-8  w-full flex flex-col">
-            <form @submit.prevent="handleSubmit">
-                <div>
-                    <h2 class="text-2xl font-bold mb-1">Information personnels</h2>
-                    <div
-                        class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-full max-w-2xl flex flex-col gap-6">
 
-                        <div>
-                            <label for="firstName" hidden>firstName</label>
-                            <input type="text" v-model="userData.firstName" name="firstName" id="firstName"
-                                :disabled="isDisable" placeholder="Prénom"
-                                class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                        </div>
-                        <div>
-                            <label for="lastName" hidden>lastName</label>
-                            <input type="text" v-model="userData.lastName" name="lastName" id="lastName"
-                                :disabled="isDisable" placeholder="Nom"
-                                class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                        </div>
-                        <div>
-                            <label for="birthDate" hidden>birthDate</label>
-                            <input type="date" v-model="userData.birthDate" name="birthDate" id="birthDate"
-                                :disabled="isDisable" placeholder="Nom"
-                                class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                        </div>
-                        <div>
-                            <label for="email" hidden>email</label>
-                            <input type="text" v-model="userData.email" name="email" id="email" :disabled="isDisable"
-                                placeholder="Email"
-                                class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                        </div>
-                        <div class="flex">
-                            <label for="password" hidden>password</label>
-                            <input :type="showPassword ? 'password' : 'text'" v-model="userData.password"
-                                name="password" id="password" :disabled="isDisable" placeholder="Email"
-                                :class="isDisable ? 'w-full' : 'w-[70%]'"
-                                class="bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
+        <!-- HEADER -->
+        <div class="max-w-6xl mx-auto flex justify-between items-center mb-12">
+            <h1 class="text-3xl font-bold">Détail du profil</h1>
 
-                            <button type="button" @click="togglePasswordShow" :class="isDisable ? 'hidden' : ''"
-                                class="w-[30%] px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Show
-                                Password</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="flex gap-4">
+                <button @click="connectUserOne()"
+                    class="px-4 py-2 rounded-md bg-principale hover:opacity-80 transition">
+                    User 2 btn temp
+                </button>
 
-                <div class="  w-full flex flex-col">
-                    <h2 class="text-2xl font-bold mb-1">Adresses</h2>
-                    <div class="flex w-full justify-between">
-                        <div
-                            class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-[49%] flex flex-col gap-6">
-                            <h2 class="text-2xl font-bold mb-1">Maison</h2>
+                <button v-if="isDisable" @click="toggleEdit()"
+                    class="px-4 py-2 rounded-md bg-secondaire hover:opacity-80 transition">
+                    Mettre à jour
+                </button>
 
-
-                            <div>
-                                <label for="streetNumber" hidden>streetNumber</label>
-                                <input type="text" name="streetNumber" id="streetNumber"
-                                    v-model="userAdresseOne.streetNumber" :disabled="isDisable"
-                                    placeholder="streetNumber"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-                            <div>
-                                <label for="streetName" hidden>streetNumber</label>
-                                <input type="text" name="streetName" id="streetName" v-model="userAdresseOne.streetName"
-                                    :disabled="isDisable" placeholder="streetName"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-                            <div>
-                                <label for="city" hidden>streetNumber</label>
-                                <input type="text" name="city" id="city" v-model="userAdresseOne.city"
-                                    :disabled="isDisable" placeholder="city"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-                            <div>
-                                <label for="province" hidden>streetNumber</label>
-                                <input type="text" name="province" id="province" v-model="userAdresseOne.province"
-                                    :disabled="isDisable" placeholder="province"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-                            <div>
-                                <label for="country" hidden>streetNumber</label>
-                                <input type="text" name="country" id="country" v-model="userAdresseOne.country"
-                                    :disabled="isDisable" placeholder="country"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-
-                            <button type="button" @click="delAdressFunction(userAdresseOne.type)"
-                                :class="isDisable ? 'hidden' : ''"
-                                class="px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-red-800 hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Supprimer</button>
-                        </div>
-
-                        <div
-                            class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-[49%] flex flex-col gap-6">
-
-                            <h2 class="text-2xl font-bold mb-1">Travail</h2>
-
-                            <div>
-                                <label for="streetNumber" hidden>streetNumber</label>
-                                <input type="text" name="streetNumber" id="streetNumber"
-                                    v-model="userAdresseTwo.streetNumber" :disabled="isDisable"
-                                    placeholder="streetNumber"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-                            <div>
-                                <label for="streetName" hidden>streetNumber</label>
-                                <input type="text" name="streetName" id="streetName" v-model="userAdresseTwo.streetName"
-                                    :disabled="isDisable" placeholder="streetName"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-                            <div>
-                                <label for="city" hidden>streetNumber</label>
-                                <input type="text" name="city" id="city" v-model="userAdresseTwo.city"
-                                    :disabled="isDisable" placeholder="city"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-                            <div>
-                                <label for="province" hidden>streetNumber</label>
-                                <input type="text" name="province" id="province" v-model="userAdresseTwo.province"
-                                    :disabled="isDisable" placeholder="province"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-                            <div>
-                                <label for="country" hidden>streetNumber</label>
-                                <input type="text" name="country" id="country" v-model="userAdresseTwo.country"
-                                    :disabled="isDisable" placeholder="country"
-                                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-
-                            </div>
-
-                            <button type="button" @click="delAdressFunction(userAdresseTwo.type)"
-                                :class="isDisable ? 'hidden' : ''"
-                                class="px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-red-800 hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Supprimer</button>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h2 class="text-2xl font-bold mb-1">Renseignements</h2>
-                    <div class="flex justify-between">
-
-                        <div
-                            class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-[49%] flex flex-col gap-6">
-                            <h2 class="text-2xl font-bold mb-1">Renseignements scolaires</h2>
-                            <div class="flex flex-col gap-6">
-                                <div>
-                                    <label for="schoolName" hidden>schoolName</label>
-                                    <input type="text" name="streetNumber" id="schoolName"
-                                        v-model="schoolDetail.schoolName" :disabled="isDisable" placeholder="schoolName"
-                                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                                </div>
-                                <div>
-                                    <label for="fieldOfStudy" hidden>fieldOfStudy</label>
-                                    <input type="text" name="fieldOfStudy" id="fieldOfStudy"
-                                        v-model="schoolDetail.fieldOfStudy" :disabled="isDisable"
-                                        placeholder="fieldOfStudy"
-                                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                                </div>
-                                <div>
-                                    <label for="startDate" hidden>startDate</label>
-                                    <input type="date" v-model="schoolDetail.startDate" name="startDate" id="startDate"
-                                        :disabled="isDisable" placeholder="startDate"
-                                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                                </div>
-
-                                <div>
-                                    <label for="projectedEndDate" hidden>projectedEndDate</label>
-                                    <input type="date" name="projectedEndDate" id="projectedEndDate"
-                                        v-model="schoolDetail.projectedEndDate" :disabled="isDisable"
-                                        placeholder="projectedEndDate"
-                                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                                </div>
-                                <button type="button" @click="delDetailFunction('school-details')"
-                                    :class="isDisable ? 'hidden' : ''"
-                                    class="px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-red-800 hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Supprimer</button>
-
-
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-[49%] flex flex-col gap-6">
-                            <h2 class="text-2xl font-bold mb-1">Renseignements bancaires</h2>
-                            <div class="flex flex-col gap-6">
-                                <div>
-                                    <label for="institutionName" hidden>institutionName</label>
-                                    <input type="text" name="institutionNameinstitutionName" id="institutionName"
-                                        v-model="bankDetail.institutionName" :disabled="isDisable"
-                                        placeholder="institutionName"
-                                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                                </div>
-                                <div>
-                                    <label for="accountInfo" hidden>accountInfo</label>
-                                    <input type="text" name="accountInfo" id="accountInfo"
-                                        v-model="bankDetail.accountInfo" :disabled="isDisable" placeholder="accountInfo"
-                                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                                </div>
-                                <div>
-                                    <label for="loanInfo" hidden>startDate</label>
-                                    <input type="text" name="loanInfo" id="loanInfo" v-model="bankDetail.loanInfo"
-                                        :disabled="isDisable" placeholder="loanInfo"
-                                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                                </div>
-                                <div>
-                                    <label for="other" hidden>other</label>
-                                    <input type="text" name="other" id="other" v-model="bankDetail.other"
-                                        :disabled="isDisable" placeholder="other"
-                                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                                </div>
-                                <button type="button" @click="delDetailFunction('banking-details')"
-                                    :class="isDisable ? 'hidden' : ''"
-                                    class="px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-red-800 hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Supprimer</button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
+                <button v-else @click="handleSubmit()"
+                    class="px-4 py-2 rounded-md bg-linear-to-r from-principale to-secondaire hover:shadow-lg transition">
+                    Enregistrer
+                </button>
+            </div>
         </div>
+
+        <!-- FORM -->
+        <form @submit.prevent="handleSubmit" class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8">
+
+            <!-- USER -->
+            <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-6">
+                <h2 class="text-2xl font-bold">Informations personnelles</h2>
+
+                <input v-model="userData.firstName" :disabled="isDisable" placeholder="Prénom"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="userData.lastName" :disabled="isDisable" placeholder="Nom"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input type="date" v-model="userData.birthDate" :disabled="isDisable"
+                    class="w-full bg-input-bg border border-input-border text-text px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="userData.email" :disabled="isDisable" placeholder="Email"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <div class="flex gap-3">
+                    <input :type="showPassword ? 'password' : 'text'" v-model="userData.password" :disabled="isDisable"
+                        placeholder="Mot de passe"
+                        class="flex-1 bg-input-bg border border-input-border text-text px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <button v-if="!isDisable" type="button" @click="togglePasswordShow"
+                        class="px-4 rounded-md bg-principale hover:opacity-80">
+                        👁
+                    </button>
+                </div>
+            </div>
+
+            <!-- ADDRESSES -->
+            <div class="flex flex-col gap-8">
+
+                <!-- MAISON -->
+                <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
+                    <h2 class="text-xl font-bold">Maison</h2>
+
+                    <input v-model="userAdresseOne.streetNumber" :disabled="isDisable" placeholder="Numéro"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseOne.streetName" :disabled="isDisable" placeholder="Rue"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseOne.city" :disabled="isDisable" placeholder="Ville"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseOne.province" :disabled="isDisable" placeholder="Province"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseOne.country" :disabled="isDisable" placeholder="Pays"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+
+                    <button v-if="!isDisable" @click="delAdressFunction(userAdresseOne.type)" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+         bg-linear-to-r from-red-600/80 to-red-800/80 
+         hover:from-red-500 hover:to-red-700
+         text-white text-sm font-medium
+         transition-all duration-300
+         shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 7h12M9 7V4h6v3m-7 4v6m4-6v6M5 7h14l-1 14H6L5 7z" />
+                        </svg>
+
+                        Supprimer
+                    </button>
+                </div>
+
+                <!-- TRAVAIL -->
+                <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
+                    <h2 class="text-xl font-bold">Travail</h2>
+
+                    <input v-model="userAdresseTwo.streetNumber" :disabled="isDisable" placeholder="Numéro"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseTwo.streetName" :disabled="isDisable" placeholder="Rue"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseTwo.city" :disabled="isDisable" placeholder="Ville"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseTwo.province" :disabled="isDisable" placeholder="Province"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseTwo.country" :disabled="isDisable" placeholder="Pays"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+
+
+
+                    <button v-if="!isDisable" @click="delAdressFunction(userAdresseTwo.type)" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+         bg-linear-to-r from-red-600/80 to-red-800/80 
+         hover:from-red-500 hover:to-red-700
+         text-white text-sm font-medium
+         transition-all duration-300
+         shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 7h12M9 7V4h6v3m-7 4v6m4-6v6M5 7h14l-1 14H6L5 7z" />
+                        </svg>
+
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+
+            <!-- SCHOOL -->
+            <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
+                <h2 class="text-2xl font-bold">Scolaire</h2>
+
+                <input v-model="schoolDetail.schoolName" :disabled="isDisable" placeholder="École"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="schoolDetail.fieldOfStudy" :disabled="isDisable" placeholder="Domaine"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input type="date" v-model="schoolDetail.startDate" :disabled="isDisable"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input type="date" v-model="schoolDetail.projectedEndDate" :disabled="isDisable"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+
+                <button v-if="!isDisable" @click="delDetailFunction('school-details')" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+         bg-linear-to-r from-red-600/80 to-red-800/80 
+         hover:from-red-500 hover:to-red-700
+         text-white text-sm font-medium
+         transition-all duration-300
+         shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 7h12M9 7V4h6v3m-7 4v6m4-6v6M5 7h14l-1 14H6L5 7z" />
+                    </svg>
+
+                    Supprimer
+                </button>
+
+            </div>
+
+            <!-- BANK -->
+            <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
+                <h2 class="text-2xl font-bold">Bancaire</h2>
+
+                <input v-model="bankDetail.institutionName" :disabled="isDisable" placeholder="Institution"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="bankDetail.accountInfo" :disabled="isDisable" placeholder="Compte"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="bankDetail.loanInfo" :disabled="isDisable" placeholder="Prêt"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="bankDetail.other" :disabled="isDisable" placeholder="Autre"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+
+                <button v-if="!isDisable" @click="delDetailFunction('banking-details')" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+         bg-linear-to-r from-red-600/80 to-red-800/80 
+         hover:from-red-500 hover:to-red-700
+         text-white text-sm font-medium
+         transition-all duration-300
+         shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 7h12M9 7V4h6v3m-7 4v6m4-6v6M5 7h14l-1 14H6L5 7z" />
+                    </svg>
+
+                    Supprimer
+                </button>
+
+            </div>
+        </form>
+
+        <!-- BLOB BOTTOM -->
+        <div aria-hidden="true"
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+                class="relative left-[calc(50%+3rem)] aspect-1155/678 w-xl -translate-x-1/2 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%+36rem)] sm:w-6xl">
+            </div>
+        </div>
+
     </div>
-
 </template>
 
 <script setup>
@@ -368,8 +356,8 @@ const fetchUserDetails = async (type) => {
             schoolDetail.value = {
                 schoolName: data.schoolName,
                 fieldOfStudy: data.fieldOfStudy,
-                startDate: data.startDate,
-                projectedEndDate: data.projectedEndDate
+                startDate: data.startDate?.split('T')[0],
+                projectedEndDate: data.projectedEndDate?.split('T')[0]
             }
         }
 
