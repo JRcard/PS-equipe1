@@ -1,127 +1,238 @@
 <template>
-    <div class="w-[90%] m-auto">
-        <button @click="connectUserOne()">Connect User 1</button>
+    <div class="relative isolate bg-background min-h-screen px-6 lg:px-8 pt-24 text-white">
 
-
-        <div class="flex justify-between">
-            <h2 class="underline">Detail du profil</h2>
-            <button type="button" v-if="isDisable" @click="toggleEdit()">Mettre à jour</button>
-            <button type="button" v-else @click="handleSubmit()">Enregister</button>
+        <!-- BLOB TOP -->
+        <div aria-hidden="true"
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+                class="relative left-[calc(50%-11rem)] aspect-1155/678 w-xl rotate-30 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%-30rem)] sm:w-6xl">
+            </div>
         </div>
-        <div>
-            <form @submit.prevent="handleSubmit">
-                <fieldset class="border-2">
-                    <legend>Information personnels</legend>
-                    <div>
-                        <label for="firstName" hidden>firstName</label>
-                        <input type="text" v-model="userData.firstName" name="firstName" id="firstName"
-                            :disabled="isDisable" placeholder="Prénom">
-                    </div>
-                    <div>
-                        <label for="lastName" hidden>lastName</label>
-                        <input type="text" v-model="userData.lastName" name="lastName" id="lastName"
-                            :disabled="isDisable" placeholder="Nom">
-                    </div>
-                    <div>
-                        <label for="birthDate" hidden>birthDate</label>
-                        <input type="date" v-model="userData.birthDate" name="birthDate" id="birthDate"
-                            :disabled="isDisable" placeholder="Nom">
-                    </div>
-                    <div>
-                        <label for="email" hidden>email</label>
-                        <input type="text" v-model="userData.email" name="email" id="email" :disabled="isDisable"
-                            placeholder="Email">
-                    </div>
-                    <div>
-                        <label for="password" hidden>password</label>
-                        <input :type="showPassword ? 'password' : 'text'" v-model="userData.password" name="password"
-                            id="password" :disabled="isDisable" placeholder="Email">
-                        <button type="button" @click="togglePasswordShow">Show Password</button>
-                    </div>
-                </fieldset>
 
-                <fieldset class="border-2 flex justify-around">
-                    <legend>Adresses</legend>
-                    <div>
-                        <h3 v-if="userAdresseOne.type == 'PERSONAL'">Maison</h3>
-                        <h3 v-else>Travail</h3>
-                        <div>
-                            <label for="streetNumber" hidden>streetNumber</label>
-                            <input type="text" name="streetNumber" id="streetNumber"
-                                v-model="userAdresseOne.streetNumber" :disabled="isDisable" placeholder="streetNumber">
-                        </div>
-                        <div>
-                            <label for="streetName" hidden>streetNumber</label>
-                            <input type="text" name="streetName" id="streetName" v-model="userAdresseOne.streetName"
-                                :disabled="isDisable" placeholder="streetName">
-                        </div>
-                        <div>
-                            <label for="city" hidden>streetNumber</label>
-                            <input type="text" name="city" id="city" v-model="userAdresseOne.city" :disabled="isDisable"
-                                placeholder="city">
-                        </div>
-                        <div>
-                            <label for="province" hidden>streetNumber</label>
-                            <input type="text" name="province" id="province" v-model="userAdresseOne.province"
-                                :disabled="isDisable" placeholder="province">
-                        </div>
-                        <div>
-                            <label for="country" hidden>streetNumber</label>
-                            <input type="text" name="country" id="country" v-model="userAdresseOne.country"
-                                :disabled="isDisable" placeholder="country">
-                        </div>
-                        <button type="button" @click="delAdressFunction(userAdresseOne.type)">Supprimer</button>
-                    </div>
+        <!-- HEADER -->
+        <div class="max-w-6xl mx-auto flex justify-between items-center mb-12">
+            <h1 class="text-3xl font-bold">Détail du profil</h1>
 
-                    <div>
-                        <h3 v-if="userAdresseOne.type == 'PERSONAL'">Travail</h3>
-                        <h3 v-else>Maison</h3>
-                        <div>
-                            <label for="streetNumber" hidden>streetNumber</label>
-                            <input type="text" name="streetNumber" id="streetNumber"
-                                v-model="userAdresseTwo.streetNumber" :disabled="isDisable" placeholder="streetNumber">
-                        </div>
-                        <div>
-                            <label for="streetName" hidden>streetNumber</label>
-                            <input type="text" name="streetName" id="streetName" v-model="userAdresseTwo.streetName"
-                                :disabled="isDisable" placeholder="streetName">
-                        </div>
-                        <div>
-                            <label for="city" hidden>streetNumber</label>
-                            <input type="text" name="city" id="city" v-model="userAdresseTwo.city" :disabled="isDisable"
-                                placeholder="city">
-                        </div>
-                        <div>
-                            <label for="province" hidden>streetNumber</label>
-                            <input type="text" name="province" id="province" v-model="userAdresseTwo.province"
-                                :disabled="isDisable" placeholder="province">
-                        </div>
-                        <div>
-                            <label for="country" hidden>streetNumber</label>
-                            <input type="text" name="country" id="country" v-model="userAdresseTwo.country"
-                                :disabled="isDisable" placeholder="country">
-                        </div>
-                        <div>
-                            <label for="type" hidden>type</label>
-                            <input type="text" name="type" id="type" v-model="userAdresseTwo.type" :disabled="isDisable"
-                                placeholder="type" hidden>
-                        </div>
-                        <button type="button" @click="delAdressFunction(userAdresseOne.type)">Supprimer</button>
-                    </div>
+            <div class="flex gap-4">
+                <button @click="connectUserOne()"
+                    class="px-4 py-2 rounded-md bg-principale hover:opacity-80 transition">
+                    User 2 btn temp
+                </button>
 
-                </fieldset>
+                <button v-if="isDisable" @click="toggleEdit()"
+                    class="px-4 py-2 rounded-md bg-secondaire hover:opacity-80 transition">
+                    Mettre à jour
+                </button>
 
-            </form>
+                <button v-else @click="handleSubmit()"
+                    class="px-4 py-2 rounded-md bg-linear-to-r from-principale to-secondaire hover:shadow-lg transition">
+                    Enregistrer
+                </button>
+            </div>
         </div>
+
+        <!-- FORM -->
+        <form @submit.prevent="handleSubmit" class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8">
+
+            <!-- USER -->
+            <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-6">
+                <h2 class="text-2xl font-bold">Informations personnelles</h2>
+
+                <input v-model="userData.firstName" :disabled="isDisable" placeholder="Prénom"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="userData.lastName" :disabled="isDisable" placeholder="Nom"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input type="date" v-model="userData.birthDate" :disabled="isDisable"
+                    class="w-full bg-input-bg border border-input-border text-text px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="userData.email" :disabled="isDisable" placeholder="Email"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <div class="flex gap-3">
+                    <input :type="showPassword ? 'password' : 'text'" v-model="userData.password" :disabled="isDisable"
+                        placeholder="Mot de passe"
+                        class="flex-1 bg-input-bg border border-input-border text-text px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <button v-if="!isDisable" type="button" @click="togglePasswordShow"
+                        class="px-4 rounded-md bg-principale hover:opacity-80">
+                        👁
+                    </button>
+                </div>
+            </div>
+
+            <!-- ADDRESSES -->
+            <div class="flex flex-col gap-8">
+
+                <!-- MAISON -->
+                <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
+                    <h2 class="text-xl font-bold">Maison</h2>
+
+                    <input v-model="userAdresseOne.streetNumber" :disabled="isDisable" placeholder="Numéro"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseOne.streetName" :disabled="isDisable" placeholder="Rue"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseOne.city" :disabled="isDisable" placeholder="Ville"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseOne.province" :disabled="isDisable" placeholder="Province"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseOne.country" :disabled="isDisable" placeholder="Pays"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+
+                    <button v-if="!isDisable" @click="delAdressFunction(userAdresseOne.type)" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+         bg-linear-to-r from-red-600/80 to-red-800/80 
+         hover:from-red-500 hover:to-red-700
+         text-white text-sm font-medium
+         transition-all duration-300
+         shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 7h12M9 7V4h6v3m-7 4v6m4-6v6M5 7h14l-1 14H6L5 7z" />
+                        </svg>
+
+                        Supprimer
+                    </button>
+                </div>
+
+                <!-- TRAVAIL -->
+                <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
+                    <h2 class="text-xl font-bold">Travail</h2>
+
+                    <input v-model="userAdresseTwo.streetNumber" :disabled="isDisable" placeholder="Numéro"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseTwo.streetName" :disabled="isDisable" placeholder="Rue"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseTwo.city" :disabled="isDisable" placeholder="Ville"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseTwo.province" :disabled="isDisable" placeholder="Province"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                    <input v-model="userAdresseTwo.country" :disabled="isDisable" placeholder="Pays"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+
+
+
+                    <button v-if="!isDisable" @click="delAdressFunction(userAdresseTwo.type)" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+         bg-linear-to-r from-red-600/80 to-red-800/80 
+         hover:from-red-500 hover:to-red-700
+         text-white text-sm font-medium
+         transition-all duration-300
+         shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 7h12M9 7V4h6v3m-7 4v6m4-6v6M5 7h14l-1 14H6L5 7z" />
+                        </svg>
+
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+
+            <!-- SCHOOL -->
+            <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
+                <h2 class="text-2xl font-bold">Scolaire</h2>
+
+                <input v-model="schoolDetail.schoolName" :disabled="isDisable" placeholder="École"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="schoolDetail.fieldOfStudy" :disabled="isDisable" placeholder="Domaine"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input type="date" v-model="schoolDetail.startDate" :disabled="isDisable"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input type="date" v-model="schoolDetail.projectedEndDate" :disabled="isDisable"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+
+                <button v-if="!isDisable" @click="delDetailFunction('school-details')" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+         bg-linear-to-r from-red-600/80 to-red-800/80 
+         hover:from-red-500 hover:to-red-700
+         text-white text-sm font-medium
+         transition-all duration-300
+         shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 7h12M9 7V4h6v3m-7 4v6m4-6v6M5 7h14l-1 14H6L5 7z" />
+                    </svg>
+
+                    Supprimer
+                </button>
+
+            </div>
+
+            <!-- BANK -->
+            <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
+                <h2 class="text-2xl font-bold">Bancaire</h2>
+
+                <input v-model="bankDetail.institutionName" :disabled="isDisable" placeholder="Institution"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="bankDetail.accountInfo" :disabled="isDisable" placeholder="Compte"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="bankDetail.loanInfo" :disabled="isDisable" placeholder="Prêt"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+                <input v-model="bankDetail.other" :disabled="isDisable" placeholder="Autre"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+
+
+                <button v-if="!isDisable" @click="delDetailFunction('banking-details')" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+         bg-linear-to-r from-red-600/80 to-red-800/80 
+         hover:from-red-500 hover:to-red-700
+         text-white text-sm font-medium
+         transition-all duration-300
+         shadow-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 7h12M9 7V4h6v3m-7 4v6m4-6v6M5 7h14l-1 14H6L5 7z" />
+                    </svg>
+
+                    Supprimer
+                </button>
+
+            </div>
+        </form>
+
+        <!-- BLOB BOTTOM -->
+        <div aria-hidden="true"
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+                class="relative left-[calc(50%+3rem)] aspect-1155/678 w-xl -translate-x-1/2 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%+36rem)] sm:w-6xl">
+            </div>
+        </div>
+
     </div>
-
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 
 const connectUserOne = () => {
-    localStorage.setItem("userId", 1)
+    localStorage.setItem("userId", 2)
     console.log(localStorage.getItem("userId"))
 
 }
@@ -145,6 +256,7 @@ const userData = ref({
     email: "",
     password: "",
 });
+
 const fetchUser = async () => {
     try {
         const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}`)
@@ -182,30 +294,119 @@ const userAdresseTwo = ref({
     type: "WORK"
 })
 
-const setAddresses = (addresses, data, index) => {
-    addresses.value.streetNumber = data[index].streetNumber
-    addresses.value.streetName = data[index].streetName
-    addresses.value.city = data[index].city
-    addresses.value.province = data[index].province
-    addresses.value.country = data[index].country
-    addresses.value.type = data[index].type
+const schoolDetail = ref({
+    schoolName: "",
+    fieldOfStudy: "",
+    startDate: "",
+    projectedEndDate: ""
+})
+
+const bankDetail = ref({
+    institutionName: "",
+    accountInfo: "",
+    loanInfo: "",
+    other: ""
+})
+
+const setData = (target, data) => {
+    target.value = { ...data };
 }
 
-const fetchUserAdresse = async () => {
 
+
+const fetchUserAdresse = async () => {
     try {
         const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`)
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+
         const data = await response.json();
-        setAddresses(userAdresseOne, data, 0)
-        setAddresses(userAdresseTwo, data, 1)
-        console.log(data)
+
+        const personal = data.find(a => a.type === "PERSONAL");
+        const work = data.find(a => a.type === "WORK");
+
+        if (personal) setData(userAdresseOne, personal);
+        if (work) setData(userAdresseTwo, work);
+
     } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
+        console.error(error);
     }
 }
+
+const fetchUserDetails = async (type) => {
+    try {
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/${type}`)
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+
+
+        if (type === "banking-details") {
+            bankDetail.value = {
+                institutionName: data.institutionName,
+                accountInfo: data.accountInfo,
+                loanInfo: data.loanInfo,
+                other: data.other
+            }
+        }
+        if (type === "school-details") {
+            schoolDetail.value = {
+                schoolName: data.schoolName,
+                fieldOfStudy: data.fieldOfStudy,
+                startDate: data.startDate?.split('T')[0],
+                projectedEndDate: data.projectedEndDate?.split('T')[0]
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const delDetailFunction = async (type) => {
+    try {
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/${type}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        if (type === "school-details") {
+            schoolDetail.value = {
+                schoolName: "",
+                fieldOfStudy: "",
+                startDate: "",
+                projectedEndDate: ""
+            }
+        }
+
+        if (type === "banking-details") {
+            bankDetail.value = {
+                institutionName: "",
+                accountInfo: "",
+                loanInfo: "",
+                other: ""
+            }
+        }
+
+
+        fetchUserAdresse()
+        const data = await response.json();
+        console.log('Success:', data);
+
+    } catch (err) {
+        console.error('Error:', err);
+    }
+
+}
+
 
 const delAdressFunction = async (type) => {
 
@@ -220,6 +421,30 @@ const delAdressFunction = async (type) => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        if (type === "PERSONAL") {
+            userAdresseOne.value = {
+                streetNumber: "",
+                streetName: "",
+                city: "",
+                province: "",
+                country: "",
+                type: "PERSONAL"
+            };
+        }
+
+        if (type === "WORK") {
+            userAdresseTwo.value = {
+                streetNumber: "",
+                streetName: "",
+                city: "",
+                province: "",
+                country: "",
+                type: "WORK"
+            };
+        }
+
+
+        fetchUserAdresse()
         const data = await response.json();
         console.log('Success:', data);
 
@@ -229,8 +454,9 @@ const delAdressFunction = async (type) => {
 
 }
 
-const putFunction = async (url, dataToSend) => {
 
+
+const putFunction = async (url, dataToSend) => {
     try {
         const response = await fetch(url, {
             method: 'PUT',
@@ -245,7 +471,7 @@ const putFunction = async (url, dataToSend) => {
 
         const data = await response.json();
         console.log('Success:', data);
-        toggleEdit()
+
     } catch (err) {
         console.error('Error:', err);
     }
@@ -253,13 +479,24 @@ const putFunction = async (url, dataToSend) => {
 
 const handleSubmit = () => {
     putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}`, userData);
-    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`, userAdresseOne)
-    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`, userAdresseTwo)
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`, userAdresseOne);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`, userAdresseTwo);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/banking-details`, bankDetail);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/school-details`, schoolDetail);
+
+
+    toggleEdit();
+    if (showPassword.value === false) {
+        togglePasswordShow()
+    }
 }
 
 onMounted(() => {
     fetchUser();
     fetchUserAdresse();
+    fetchUserDetails("school-details");
+    fetchUserDetails("banking-details");
+
 })
 
 </script>
