@@ -1,13 +1,14 @@
 <template>
   <footer>
-    <div class="h-[5vh] bg-linear-to-t from-indigo-200 to-transparent"></div>
-    <div class="bg-indigo-200 h-[15vh] flex items-center justify-between px-20">
+    <div
+      class="bg-linear-to-t from-principale/10 to-transparent h-[15vh] flex items-center justify-between p-20 mt-30"
+    >
       <img class="h-[15vh]" :src="logo" alt="Logo Stratos" />
 
       <h3>
         Projet conçu et réalisé par :
         <br />
-        <strong class="text-violet-700"
+        <strong class=""
           >Marie-Pier Simard, Lucas Minville,<br />
           Jérémie Ricard & Allan Tri Tam Pham.</strong
         >
