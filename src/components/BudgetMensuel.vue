@@ -9,7 +9,7 @@
 		<div>
 			<h2>Budget mensuel</h2>
 			<div class="flex gap-3 justify-center">
-				<TableauRevenu @revenuDeleteID="deleteRevenu" @newRevenu="ajoutRevenu" @updatedRevenu="updatedRevenu" :data="revenuList" :current="currentRevenuTransaction" />
+				<TableauRevenu @revenuDeleteID="deleteRevenu" @newRevenu="ajoutRevenu" @updatedRevenu="updatedRevenu" @editThisRow="editThisRow" :data="revenuList" :editingRow="currentEditing" />
 				<TableauDepense :data="depenseList" />
 			</div>
 		</div>
@@ -26,7 +26,7 @@ const url = `https://money-pie-1.fly.dev/api/v1/users/${userId}/transactions`;
 const revenuList = ref([]);
 const depenseList = ref([]);
 const data = ref([]);
-const currentRevenuTransaction = ref([]);
+const currentEditing = ref([]);
 
 const useAPI = (url) => {
 	fetch(url)
@@ -54,6 +54,10 @@ const nouveauMois = async () => {
 	}
 	useAPI(url);
 };
+const editThisRow = (id) => {
+	currentEditing.value = data.value.find((t) => t.id === id);
+};
+
 const ajoutRevenu = async (load) => {
 	try {
 		const response = await fetch(url, {
@@ -67,14 +71,19 @@ const ajoutRevenu = async (load) => {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
 
-		currentRevenuTransaction.value = await response.json();
-		console.log("Success:", currentRevenuTransaction.value.id);
+		const newRow = await response.json();
+		revenuList.value.push(newRow);
+		currentEditing.value = newRow;
+		console.log("Success:", newRow);
 	} catch (err) {
 		console.error("Error:", err);
 	}
 	useAPI(url);
 };
 const updatedRevenu = async (load) => {
+	if (load.id == undefined) {
+		return;
+	}
 	try {
 		const response = await fetch(`${url}/${load.id}`, {
 			method: "PUT",
@@ -86,8 +95,6 @@ const updatedRevenu = async (load) => {
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
-
-		currentRevenuTransaction.value = [];
 	} catch (err) {
 		console.error("Error:", err);
 	}

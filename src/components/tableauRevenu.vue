@@ -14,8 +14,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="transaction in props.data" :key="transaction.id" class="border-b-2 border-b-input-border">
-					<template v-if="transaction.id !== props.current.id">
+				<tr v-for="transaction in props.data" :key="transaction.id" @click="editThisRow(transaction.id)" class="border-b-2 border-b-input-border">
+					<template v-if="transaction.id !== props.editingRow.id">
 						<td class="pr-10 py-2">{{ transaction.startDate }}</td>
 						<td class="pr-10 py-2">{{ transaction.description }}</td>
 						<td class="pr-10 py-2">{{ transaction.amount }}$</td>
@@ -25,16 +25,16 @@
 					</template>
 					<template v-else>
 						<td class="pr-10 py-2">
-							<input type="date" v-model="props.current.startDate" class="bg-white text-background" />
+							<input type="date" v-model="props.editingRow.startDate" class="bg-white text-background" />
 						</td>
 						<td class="pr-10 py-2">
-							<input v-model="props.current.description" />
+							<input v-model="props.editingRow.description" />
 						</td>
 						<td class="pr-10 py-2">
-							<input v-model="props.current.amount" type="number" />
+							<input v-model="props.editingRow.amount" type="number" />
 						</td>
 						<td class="pr-10 py-2 text-center">
-							<select v-model="props.current.frequency" class="bg-background" id="options" name="options">
+							<select v-model="props.editingRow.frequency" class="bg-background" id="options" name="options">
 								<option value="">Choisis la fréquence</option>
 								<option value="1">Quotidien</option>
 								<option value="7">Hebdomadaire</option>
@@ -44,7 +44,7 @@
 							</select>
 						</td>
 						<td class="px-10 py-2">
-							<button @click="save(props.current.id)">Save</button>
+							<!-- <button @click="save(props.current.id)">Save</button> -->
 						</td>
 					</template>
 				</tr>
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 const newDefautRevenu = {
 	description: "description",
 	category: "catégorie",
@@ -75,9 +75,9 @@ const newDefautRevenu = {
 };
 const props = defineProps({
 	data: Array,
-	current: Object,
+	editingRow: Object,
 });
-const emit = defineEmits(["revenuDeleteID", "newRevenu", "updatedRevenu"]);
+const emit = defineEmits(["revenuDeleteID", "newRevenu", "updatedRevenu", "editThisRow"]);
 
 const del = (id) => {
 	if (window.confirm("Es-tu sûr·e de vouloir supprimer cette transaction?")) {
@@ -87,9 +87,16 @@ const del = (id) => {
 const ajout = () => {
 	emit("newRevenu", newDefautRevenu);
 };
-const save = () => {
-	emit("updatedRevenu", props.current);
+const editThisRow = (id) => {
+	emit("editThisRow", id);
 };
+watch(
+	() => props.editingRow,
+	(newVal) => {
+		emit("updatedRevenu", newVal);
+	},
+	{ deep: true },
+);
 
 const totalRevenu = computed(() => {
 	let total = 0;
