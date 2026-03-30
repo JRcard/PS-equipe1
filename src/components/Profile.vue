@@ -15,10 +15,7 @@
             <h1 class="text-3xl font-bold">Détail du profil</h1>
 
             <div class="flex gap-4">
-                <button @click="connectUserOne()"
-                    class="px-4 py-2 rounded-md bg-principale hover:opacity-80 transition">
-                    User 2 btn temp
-                </button>
+
 
                 <button v-if="isDisable" @click="toggleEdit()"
                     class="px-4 py-2 rounded-md bg-secondaire hover:opacity-80 transition">
@@ -275,11 +272,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-const connectUserOne = () => {
-    localStorage.setItem("userId", 2)
-    console.log(localStorage.getItem("userId"))
-
-}
 
 let showPassword = ref(true)
 
