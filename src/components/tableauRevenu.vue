@@ -1,55 +1,55 @@
 <template>
 	<div class="border-2 border-input-border m-5 p-5 rounded-xl bg-card">
 		<div class="flex justify-between mb-4">
-			<h3 class="text-xl font-bold mb-1">Revenus</h3>
+			<h3 class="text-3xl font-bold mb-1">Revenus</h3>
 		</div>
 		<table class="min-w-full mb-10">
 			<thead class="text-left">
 				<tr>
-					<th class="pr-10 py-2">Date</th>
-					<th class="pr-10 py-2">Description</th>
-					<th class="pr-10 py-2">Revenu mensuel</th>
-					<th class="pr-10 py-2">Récurrent</th>
-					<th class="pr-10 py-2"></th>
+					<th class="pr-10 py-2 text-xl">Date</th>
+					<th class="pr-10 py-2 text-xl">Description</th>
+					<th class="pr-10 py-2 text-xl">Revenu mensuel</th>
+					<th class="pr-10 py-2 text-xl">Récurrent</th>
+					<th class="pr-10 py-2 text-xl"></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="transaction in props.data" :key="transaction.id" class="border-b-2 border-b-input-border">
-					<template v-if="transaction.id !== props.current.id">
-						<td class="pr-10 py-2">{{ transaction.startDate }}</td>
-						<td class="pr-10 py-2">{{ transaction.description }}</td>
-						<td class="pr-10 py-2">{{ transaction.amount }}$</td>
-						<td class="pr-10 text-center" v-if="transaction.frequency != -1"><i class="bx bxs-check-square text-xl text-secondaire"></i></td>
-						<td class="pr-10 py-2 text-center" v-else><i class="bx bx-square text-xl text-secondaire"></i></td>
-						<td class="px-10 py-2" @click="del(transaction.id)"><i class="bx bxs-trash-alt text-principale text-xl"></i></td>
+				<tr v-for="transaction in props.data" :key="transaction.id" @click="editThisRow(transaction.id)" class="border-b-2 border-b-input-border">
+					<template v-if="transaction.id !== localEditing.id">
+						<td class="pr-10 py-2 text-lg">{{ transaction.startDate }}</td>
+						<td class="pr-10 py-2 text-lg">{{ transaction.description }}</td>
+						<td class="pr-10 py-2 text-lg">{{ transaction.amount }}$</td>
+						<td class="pr-10 text-center" v-if="transaction.frequency != -1"><i class="bx bxs-check-square text-2xl text-secondaire"></i></td>
+						<td class="pr-10 py-2 text-center" v-else><i class="bx bx-square text-2xl text-secondaire"></i></td>
+						<td class="px-10 py-2" @click="del(transaction.id)"><i class="bx bxs-trash-alt text-principale text-2xl cursor-pointer"></i></td>
 					</template>
 					<template v-else>
-						<td class="pr-10 py-2">
-							<input type="date" v-model="props.current.startDate" class="bg-white text-background" />
+						<td class="pr-10 py-2 text-lg">
+							<input type="date" v-model="localEditing.startDate" class="bg-white text-background" />
 						</td>
-						<td class="pr-10 py-2">
-							<input v-model="props.current.description" />
+						<td class="pr-10 py-2 text-lg">
+							<input v-model="localEditing.description" />
 						</td>
-						<td class="pr-10 py-2">
-							<input v-model="props.current.amount" type="number" />
+						<td class="pr-10 py-2 text-lg">
+							<input v-model="localEditing.amount" type="number" />
 						</td>
 						<td class="pr-10 py-2 text-center">
-							<select v-model="props.current.frequency" class="bg-background" id="options" name="options">
+							<select v-model="localEditing.frequency" class="bg-background" id="options" name="options">
 								<option value="">Choisis la fréquence</option>
-								<option value="1">Quotidien</option>
-								<option value="7">Hebdomadaire</option>
-								<option value="14">bi-mensuel</option>
-								<option value="30">Mensuel</option>
-								<option value="-1">Une seule fois</option>
+								<option :value="1">Quotidien</option>
+								<option :value="7">Hebdomadaire</option>
+								<option :value="14">bi-mensuel</option>
+								<option :value="30">Mensuel</option>
+								<option :value="-1">Une seule fois</option>
 							</select>
 						</td>
 						<td class="px-10 py-2">
-							<button @click="save(props.current.id)">Save</button>
+							<button @click.stop="save()"><i class="bx bxs-check-shield text-green-500 text-2xl cursor-pointer"></i></button>
 						</td>
 					</template>
 				</tr>
 				<tr class="border-b-2 border-b-input-border" @click="ajout()">
-					<td class="pr-10 py-2">Clique pour ajouter</td>
+					<td class="pr-10 py-2 cursor-pointer">Clique pour ajouter</td>
 					<td class="pr-10 py-2"></td>
 					<td class="pr-10 py-2"></td>
 					<td class="pr-10 py-2 text-center"></td>
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 const newDefautRevenu = {
 	description: "description",
 	category: "catégorie",
@@ -75,27 +75,53 @@ const newDefautRevenu = {
 };
 const props = defineProps({
 	data: Array,
-	current: Object,
+	editingRow: Object,
 });
-const emit = defineEmits(["revenuDeleteID", "newRevenu", "updatedRevenu"]);
+// Copie locale pour éviter la mutation de prop
+const localEditing = ref({});
+
+const emit = defineEmits(["totalRevenu", "deleteID", "newTransaction", "updateTransaction", "editThisRow", "stopEditing"]);
 
 const del = (id) => {
 	if (window.confirm("Es-tu sûr·e de vouloir supprimer cette transaction?")) {
-		emit("revenuDeleteID", id);
+		emit("deleteID", id);
 	}
 };
 const ajout = () => {
-	emit("newRevenu", newDefautRevenu);
+	emit("newTransaction", newDefautRevenu);
+};
+const editThisRow = (id) => {
+	emit("editThisRow", id);
 };
 const save = () => {
-	emit("updatedRevenu", props.current);
+	emit("stopEditing");
 };
+
+// Sync quand le parent change editingRow
+watch(
+	() => props.editingRow,
+	(newVal) => {
+		localEditing.value = newVal ? { ...newVal } : {};
+	},
+	{ immediate: true, deep: true },
+);
+// Émet les changements au parent à chaque modification
+watch(
+	localEditing,
+	(newVal) => {
+		if (newVal.id !== undefined) {
+			emit("updateTransaction", { ...newVal });
+		}
+	},
+	{ deep: true },
+);
 
 const totalRevenu = computed(() => {
 	let total = 0;
 	for (const transaction of props.data) {
 		total += parseFloat(transaction.amount);
 	}
+	emit("totalRevenu", total.toFixed(2));
 	return total.toFixed(2);
 });
 </script>
