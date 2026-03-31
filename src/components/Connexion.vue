@@ -89,9 +89,24 @@
       </div>
 
       <div v-else>
-        <button class="hover:text-red-500 cursor-pointer" @click="deconnexion">
-          SE DECONNECTER
-        </button>
+        <div class="max-w-2xl py-32 sm:py-48 lg:py-56 text-center">
+          <h2
+            class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl"
+          >
+            Oups...
+          </h2>
+          <h3
+            class="my-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8"
+          >
+            Vous êtes déjà connecté!
+          </h3>
+          <a
+            href="/"
+            class="rounded-md bg-secondaire px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-principale focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondaire"
+          >
+            Retour à la page d'accueil
+          </a>
+        </div>
       </div>
 
       <div
@@ -127,10 +142,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { inject, ref, onMounted } from "vue";
+
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const userConnecte = inject("userConnecte");
+const setUserConnecte = inject("setUserConnecte");
+
 const url = `https://money-pie-1.fly.dev/api/v1/users/2`;
 
-const user = ref(null);
+const user = inject("user");
+const setUser = inject("setUser");
 
 const useAPI = async () => {
   try {
@@ -147,7 +171,6 @@ onMounted(() => {
 
 const email = ref("");
 const password = ref("");
-const userConnecte = ref(false);
 
 const connexion = () => {
   if (!user.value) {
@@ -159,15 +182,11 @@ const connexion = () => {
     user.value.password === password.value
   ) {
     window.alert("C'EST UN MATCH");
-    userConnecte.value = true;
+    setUserConnecte(true);
+    setUser(user.value);
+    router.push("/");
   } else {
     window.alert("Mauvais user ou password");
   }
-};
-
-const deconnexion = () => {
-  userConnecte.value = false;
-  email.value = "";
-  password.value = "";
 };
 </script>
