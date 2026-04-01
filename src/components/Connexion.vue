@@ -181,7 +181,6 @@ const connexion = () => {
     user.value.email === email.value &&
     user.value.password === password.value
   ) {
-    window.alert("C'EST UN MATCH");
     setUserConnecte(true);
     setUser(user.value);
     router.push("/");
