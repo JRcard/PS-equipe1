@@ -190,6 +190,7 @@ const connexion = async () => {
     user.value.email === email.value &&
     user.value.password === password.value
   ) {
+    window.alert("Connexion réussi!");
     setUserConnecte(true);
     setUser(user.value);
     router.push("/");
