@@ -157,7 +157,7 @@ https://budgetbakers.com/fr/
 </template>
 
 <script setup>
-import { inject, ref, onMounted } from "vue";
+import { inject, ref } from "vue";
 
 import { useRouter } from "vue-router";
 
@@ -166,28 +166,22 @@ const router = useRouter();
 const userConnecte = inject("userConnecte");
 const setUserConnecte = inject("setUserConnecte");
 
-const url = `https://money-pie-1.fly.dev/api/v1/users/2`;
+const email = ref("");
+const password = ref("");
 
 const user = inject("user");
 const setUser = inject("setUser");
 
-const useAPI = async () => {
+const connexion = async () => {
   try {
+    const url = `https://money-pie-1.fly.dev/api/v1/users/email/` + email.value;
     const res = await fetch(url);
     const data = await res.json();
     user.value = data;
   } catch (err) {
     console.log(err);
   }
-};
-onMounted(() => {
-  useAPI(url);
-});
 
-const email = ref("");
-const password = ref("");
-
-const connexion = () => {
   if (!user.value) {
     window.alert("User pas encore chargé");
     return;
