@@ -82,9 +82,10 @@ const getUserByEmail = async () => {
         }
         const data = await response.json();
         id.value = await data.id
-        localStorage.setItem("userId", id.value)
+
         console.log("lid dans le local storage est" + localStorage.getItem("userId"))
     } catch (error) {
+
         console.error('There was a problem with the fetch operation:', error);
     }
 }
@@ -106,6 +107,7 @@ const post = async (url, dataToSend) => {
         console.log('Success:', data);
 
     } catch (err) {
+
         console.error('Error:', err);
     }
 }
@@ -133,7 +135,7 @@ const handleSubmit = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 
-    if (!inscData.value.email.trim() || !emailRegex.test(inscData.value.email)) {
+    if (!inscData.value.email.trim() || !emailRegex.test(inscData.value.email) || id.value === "used") {
         errors.value.email = true
         hasError = true
     }
@@ -158,7 +160,7 @@ const handleSubmit = async () => {
 
     await post(`https://money-pie-1.fly.dev/api/v1/users`, inscData.value)
     await getUserByEmail()
-
+    localStorage.setItem("userId", id.value)
 
     inscData.value = {
         email: "",
