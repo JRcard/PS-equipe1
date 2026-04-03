@@ -19,7 +19,7 @@
       </div>
       <div v-if="!userConnecte" class="hidden lg:flex lg:gap-x-12">
         <a href="#" class="text-base/7 font-semibold text-white">Se connecter</a>
-        <a class="text-base/7 font-semibold text-white z-99999 hover:cursor-pointer" @click="isOpen = true">
+        <a class="text-base/7 font-semibold text-white z-99998 hover:cursor-pointer" @click="isOpen = true">
           S'inscrire
         </a>
       </div>
