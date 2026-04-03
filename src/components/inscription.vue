@@ -15,8 +15,18 @@
                     <input type="email" placeholder="Adresse email" v-model="inscData.email" :class="[
                         'w-full bg-input-bg border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300',
                         errors.email ? 'border-red-500' : 'border-input-border'
-                    ]"
-                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                    ]" />
+                    <p v-if="isNotValidEmail" class="text-xs text-red-500">
+                        Cet email est invalide
+                    </p>
+                    <!-- messages -->
+                    <p v-if="isCheckingEmail" class="text-xs text-gray-400">
+                        Vérification...
+                    </p>
+
+                    <p v-if="emailExists" class="text-xs text-red-500">
+                        Cet email est déjà utilisé
+                    </p>
 
                     <div class="flex gap-3">
                         <input :type="showPassword ? 'password' : 'text'" placeholder="Mot de passe"
@@ -30,13 +40,19 @@
                             class="px-4 rounded-md bg-principale hover:opacity-80">
                             👁
                         </button>
+
                     </div>
+                    <p v-if="isNotValidPswd" class="text-xs text-red-500">
+                        Le mot de passe est obligatoire
+                    </p>
                     <input type="text" placeholder="Prénom" v-model="inscData.firstName" :class="[
                         'w-full bg-input-bg border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300',
                         errors.firstName ? 'border-red-500' : 'border-input-border'
                     ]"
                         class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
-
+                    <p v-if="isNotValidName" class="text-xs text-red-500">
+                        Le prénom est obligatoire
+                    </p>
 
                     <button type="submit" class=" w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center
                     transition-all duration-300 bg-linear-to-r from-principale to-secondaire
@@ -118,10 +134,59 @@ const errors = ref({
     firstName: false
 })
 
+const emailExists = ref(false)
+const isCheckingEmail = ref(false)
+let debounceTimer = null
 
+import { watch } from 'vue'
+
+const checkEmailExists = async (email) => {
+    try {
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/email/${email}`)
+
+        if (response.ok) {
+            return true // email existe
+        }
+
+        return false
+
+    } catch (error) {
+        return false
+    }
+}
+
+watch(() => inscData.value.email, (newEmail) => {
+
+    emailExists.value = false
+    errors.value.email = false
+
+    clearTimeout(debounceTimer)
+
+    if (!newEmail.trim()) return
+
+    debounceTimer = setTimeout(async () => {
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailRegex.test(newEmail)) return
+
+        isCheckingEmail.value = true
+        isNotValidEmail.value = false
+
+        const exists = await checkEmailExists(newEmail)
+
+        emailExists.value = exists
+        errors.value.email = exists
+
+        isCheckingEmail.value = false
+
+    }, 500)
+})
+
+const isNotValidEmail = ref(false)
+const isNotValidName = ref(false)
+const isNotValidPswd = ref(false)
 
 const handleSubmit = async () => {
-
 
     errors.value = {
         email: false,
@@ -131,43 +196,39 @@ const handleSubmit = async () => {
 
     let hasError = false
 
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-
-    if (!inscData.value.email.trim() || !emailRegex.test(inscData.value.email) || id.value === "used") {
+    if (!inscData.value.email.trim() || !emailRegex.test(inscData.value.email) || emailExists.value) {
         errors.value.email = true
         hasError = true
+        isNotValidEmail.value = true
+    } else {
+        isNotValidEmail.value = false
     }
 
 
     if (!inscData.value.password.trim()) {
         errors.value.password = true
         hasError = true
+        isNotValidPswd.value = true
+    } else {
+        isNotValidPswd.value = false
     }
-
 
     if (!inscData.value.firstName.trim()) {
         errors.value.firstName = true
         hasError = true
+        isNotValidName.value = true
+    } else {
+        isNotValidName.value = false
     }
 
-
-    if (hasError) {
-        return
-    }
-
+    if (hasError) return
 
     await post(`https://money-pie-1.fly.dev/api/v1/users`, inscData.value)
+
     await getUserByEmail()
     localStorage.setItem("userId", id.value)
-
-    inscData.value = {
-        email: "",
-        password: "",
-        firstName: "",
-        isActive: true
-    }
 
     emit('close')
 }
