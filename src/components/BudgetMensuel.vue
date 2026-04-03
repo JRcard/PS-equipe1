@@ -6,7 +6,7 @@
 				<img src="../assets/statos-logo-horizontal.png" alt="Stratos logo" class="h-8 w-auto" />
 			</a>
 		</div>
-		<h1>{{ user }}</h1>
+		<p>{{ userId }}</p>
 	</div>
 	<div class="max-w-475 mx-auto mt-10">
 		<div class="flex text-xl md:text-2xl font-bold">
