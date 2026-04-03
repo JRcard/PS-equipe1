@@ -1,4 +1,13 @@
 <template>
+	<div v-if="userConnecte" aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
+		<div class="flex lg:flex-1">
+			<a href="#" class="-m-1.5 p-1.5">
+				<span class="sr-only">Stratos</span>
+				<img src="../assets/statos-logo-horizontal.png" alt="Stratos logo" class="h-8 w-auto" />
+			</a>
+		</div>
+		<h1>{{ user }}</h1>
+	</div>
 	<div class="max-w-475 mx-auto mt-10">
 		<div class="flex text-xl md:text-2xl font-bold">
 			<h3 class="mr-2 mb-10">Votre balance ce mois-ci :</h3>
@@ -20,12 +29,15 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, inject, onMounted, ref } from "vue";
 import TableauRevenu from "./tableauRevenu.vue";
 import TableauDepense from "./tableauDepense.vue";
 
-const userId = 2; //window.localStorage.getItem("userId");
-const url = `https://money-pie-1.fly.dev/api/v1/users/${userId}/transactions`;
+const userId = ref(parseInt(localStorage.getItem("userId")));
+const userConnecte = inject("userConnecte");
+const user = inject("user");
+
+const url = `https://money-pie-1.fly.dev/api/v1/users/${userId.value}/transactions`;
 const revenuList = ref([]);
 const depenseList = ref([]);
 const data = ref([]);
@@ -38,9 +50,11 @@ const useAPI = (url) => {
 	fetch(url)
 		.then((res) => res.json())
 		.then((json) => {
-			data.value = json;
-			revenuList.value = json.filter((t) => t.type === "Revenue").sort((a, b) => a.id - b.id);
-			depenseList.value = json.filter((t) => t.type === "Expense").sort((a, b) => a.id - b.id);
+			if (json) {
+				data.value = json;
+				revenuList.value = json.filter((t) => t.type === "Revenue").sort((a, b) => a.id - b.id);
+				depenseList.value = json.filter((t) => t.type === "Expense").sort((a, b) => a.id - b.id);
+			}
 		})
 		.catch((err) => {
 			console.log("Erreur: " + err + " | " + url);
