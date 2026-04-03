@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isOpen" class="fixed inset-0 z-40 flex items-center justify-center bg-black/30 backdrop-blur-sm z-99999"
+    <div v-if="isOpen" class="fixed inset-0  flex items-center justify-center bg-black/30 backdrop-blur-sm z-99999"
         @click.self="emit('close')">
 
         <div class="bg-background rounded-2xl text-sm/6 flex items-center justify-center">
