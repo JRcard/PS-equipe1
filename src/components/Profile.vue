@@ -1,5 +1,6 @@
 <template>
-    <div class="relative isolate bg-background min-h-screen px-6 lg:px-8 pt-24 text-white">
+
+    <div class="relative isolate bg-background min-h-screen px-6 lg:px-8 pt-24 text-white mb-6">
 
         <!-- BLOB TOP -->
         <div aria-hidden="true"
@@ -14,10 +15,7 @@
             <h1 class="text-3xl font-bold">Détail du profil</h1>
 
             <div class="flex gap-4">
-                <button @click="connectUserOne()"
-                    class="px-4 py-2 rounded-md bg-principale hover:opacity-80 transition">
-                    User 2 btn temp
-                </button>
+
 
                 <button v-if="isDisable" @click="toggleEdit()"
                     class="px-4 py-2 rounded-md bg-secondaire hover:opacity-80 transition">
@@ -44,8 +42,11 @@
                 <input v-model="userData.lastName" :disabled="isDisable" placeholder="Nom"
                     class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
 
-                <input type="date" v-model="userData.birthDate" :disabled="isDisable"
-                    class="w-full bg-input-bg border border-input-border text-text px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                <div>
+                    <label for="birthDate">Anniversaire</label>
+                    <input type="date" v-model="userData.birthDate" :disabled="isDisable"
+                        class="w-full bg-input-bg border border-input-border text-text px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                </div>
 
                 <input v-model="userData.email" :disabled="isDisable" placeholder="Email"
                     class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
@@ -78,14 +79,31 @@
                     <input v-model="userAdresseOne.city" :disabled="isDisable" placeholder="Ville"
                         class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
 
-                    <input v-model="userAdresseOne.province" :disabled="isDisable" placeholder="Province"
-                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                    <select v-model="userAdresseOne.province" :disabled="isDisable"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire">
+                        <option value="" selected>Province</option>
+                        <option value="QC">Québec</option>
+                        <option value="ON">Ontario</option>
+                        <option value="NL">Terre-Neuve-et-Labrador</option>
+                        <option value="NS">Nouvelle-Écosse</option>
+                        <option value="PE">Île-du-Prince-Édouard</option>
+                        <option value="NB">Nouveau-Brunswick</option>
+                        <option value="MB">Manitoba</option>
+                        <option value="SK">Saskatchewan</option>
+                        <option value="AB">Alberta</option>
+                        <option value="BC">Colombie-Britannique</option>
+                        <option value="YT">Yukon</option>
+                        <option value="NT">Territoires du Nord-Ouest</option>
+                        <option value="NU">Nunavut</option>
+                    </select>
 
-                    <input v-model="userAdresseOne.country" :disabled="isDisable" placeholder="Pays"
-                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                    <select v-model="userAdresseOne.country"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire">
+                        <option value="" selected>Pays</option>
+                        <option value="CA">Canada</option>
+                    </select>
 
-
-                    <button v-if="!isDisable" @click="delAdressFunction(userAdresseOne.type)" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+                    <button type="button" v-if="!isDisable" @click="delAdressFunction(userAdresseOne.type)" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
          bg-linear-to-r from-red-600/80 to-red-800/80 
          hover:from-red-500 hover:to-red-700
          text-white text-sm font-medium
@@ -116,16 +134,32 @@
                     <input v-model="userAdresseTwo.city" :disabled="isDisable" placeholder="Ville"
                         class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
 
-                    <input v-model="userAdresseTwo.province" :disabled="isDisable" placeholder="Province"
-                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                    <select v-model="userAdresseTwo.province" :disabled="isDisable"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire">
+                        <option value="">Province</option>
+                        <option value="QC">Québec</option>
+                        <option value="ON">Ontario</option>
+                        <option value="NL">Terre-Neuve-et-Labrador</option>
+                        <option value="NS">Nouvelle-Écosse</option>
+                        <option value="PE">Île-du-Prince-Édouard</option>
+                        <option value="NB">Nouveau-Brunswick</option>
+                        <option value="MB">Manitoba</option>
+                        <option value="SK">Saskatchewan</option>
+                        <option value="AB">Alberta</option>
+                        <option value="BC">Colombie-Britannique</option>
+                        <option value="YT">Yukon</option>
+                        <option value="NT">Territoires du Nord-Ouest</option>
+                        <option value="NU">Nunavut</option>
+                    </select>
 
-                    <input v-model="userAdresseTwo.country" :disabled="isDisable" placeholder="Pays"
-                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                    <select v-model="userAdresseTwo.country"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire">
+                        <option value="" selected>Pays</option>
+                        <option value="CA">Canada</option>
+                    </select>
 
 
-
-
-                    <button v-if="!isDisable" @click="delAdressFunction(userAdresseTwo.type)" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+                    <button type="button" v-if="!isDisable" @click="delAdressFunction(userAdresseTwo.type)" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
          bg-linear-to-r from-red-600/80 to-red-800/80 
          hover:from-red-500 hover:to-red-700
          text-white text-sm font-medium
@@ -154,14 +188,21 @@
                 <input v-model="schoolDetail.fieldOfStudy" :disabled="isDisable" placeholder="Domaine"
                     class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
 
-                <input type="date" v-model="schoolDetail.startDate" :disabled="isDisable"
-                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                <div>
+                    <label for="startDate">Début des études</label>
+                    <input type="date" v-model="schoolDetail.startDate" :disabled="isDisable" id="startDate"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                </div>
 
-                <input type="date" v-model="schoolDetail.projectedEndDate" :disabled="isDisable"
-                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                <div>
+                    <label for="projectedEndDate">Fin prévu des études</label>
+                    <input type="date" v-model="schoolDetail.projectedEndDate" :disabled="isDisable"
+                        id="projectedEndDate"
+                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+                </div>
 
 
-                <button v-if="!isDisable" @click="delDetailFunction('school-details')" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+                <button type="button" v-if="!isDisable" @click="delDetailFunction('school-details')" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
          bg-linear-to-r from-red-600/80 to-red-800/80 
          hover:from-red-500 hover:to-red-700
          text-white text-sm font-medium
@@ -197,7 +238,7 @@
                     class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
 
 
-                <button v-if="!isDisable" @click="delDetailFunction('banking-details')" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
+                <button type="button" v-if="!isDisable" @click="delDetailFunction('banking-details')" class="group w-fit self-start flex items-center gap-1.5 px-3 py-1.5 rounded-lg 
          bg-linear-to-r from-red-600/80 to-red-800/80 
          hover:from-red-500 hover:to-red-700
          text-white text-sm font-medium
@@ -231,11 +272,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-const connectUserOne = () => {
-    localStorage.setItem("userId", 2)
-    console.log(localStorage.getItem("userId"))
-
-}
 
 let showPassword = ref(true)
 

@@ -4,6 +4,7 @@ import Profile from "@/components/Profile.vue";
 import Page404 from "@/components/Page404.vue";
 import Connexion from "@/components/Connexion.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import Inscription from "@/components/inscription.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

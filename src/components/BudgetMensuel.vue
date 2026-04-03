@@ -1,17 +1,17 @@
 <template>
 	<div class="max-w-475 mx-auto mt-10">
-		<div class="flex text-2xl font-bold">
+		<div class="flex text-xl md:text-2xl font-bold">
 			<h3 class="mr-2 mb-10">Votre balance ce mois-ci :</h3>
 			<p v-if="balance > 0">{{ balance }}$</p>
 			<p v-else class="text-red-500">{{ balance }}$</p>
 		</div>
 		<div></div>
 		<div>
-			<div class="flex justify-between my-10">
-				<h2 class="text-4xl font-bold mb-1">Budget mensuel</h2>
-				<button @click="nouveauMois()" class="px-8.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">NOUVEAU MOIS</button>
+			<div class="flex justify-around md:justify-between my-10 mx-5">
+				<h2 class="text-3xl md:text-4xl font-bold mb-1">Budget mensuel</h2>
+				<button @click="nouveauMois()" class="px-5.5 md:px-8.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">NOUVEAU MOIS</button>
 			</div>
-			<div class="flex gap-3 justify-center">
+			<div class="flex flex-col gap-3 justify-center">
 				<TableauRevenu @totalRevenu="totalRevenu = $event" @deleteID="deleteTransaction" @newTransaction="ajoutTransaction" @updateTransaction="updateTransaction" @editThisRow="editThisRow" @stopEditing="stopEditing" :data="revenuList" :editingRow="currentEditing" />
 				<TableauDepense @totalExpense="totalExpense = $event" @deleteID="deleteTransaction" @newTransaction="ajoutTransaction" @updateTransaction="updateTransaction" @editThisRow="editThisRow" @stopEditing="stopEditing" :data="depenseList" :editingRow="currentEditing" />
 			</div>

@@ -1,9 +1,6 @@
 <template>
-  <header class="absolute inset-x-0 top-0 z-50">
-    <nav
-      aria-label="Global"
-      class="flex items-center justify-between p-6 lg:px-8"
-    >
+  <header class="inset-x-0 top-0 z-50">
+    <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5">
           <span class="sr-only">Stratos</span>
@@ -94,16 +91,11 @@
             <div class="mt-6 flow-root">
               <div class="-my-6 divide-y divide-white/10">
                 <div class="space-y-2 py-6">
-                  <a
-                    href="#"
-                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                    >Se connecter</a
-                  >
-                  <a
-                    href="#"
-                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                    >S'inscrire</a
-                  >
+                  <a href="#"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Se
+                    connecter</a>
+                  <a class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                    @click="isOpen = true">S'inscrire</a>
                 </div>
               </div>
             </div>
@@ -112,10 +104,14 @@
       </dialog>
     </el-dialog>
   </header>
+
+  <Inscription :isOpen="isOpen" @close="isOpen = false" />
 </template>
 
 <script setup>
 import { inject } from "vue";
+import { ref } from 'vue'
+import Inscription from './inscription.vue';
 
 const userConnecte = inject("userConnecte");
 const setUserConnecte = inject("setUserConnecte");
@@ -126,4 +122,6 @@ const deconnexion = () => {
   setUserConnecte(false);
   setUser("");
 };
+const isOpen = ref(false)
 </script>
+ main
