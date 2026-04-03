@@ -67,20 +67,32 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue'
 
+
+/* =========================
+   PROPS & EMITS
+========================= */
 const props = defineProps({
     isOpen: Boolean
 })
 
 const emit = defineEmits(['close'])
 
+
+/* =========================
+   UI STATE
+========================= */
 let showPassword = ref(true)
 
 const togglePasswordShow = () => {
     showPassword.value = !showPassword.value
 }
 
+
+/* =========================
+   FORM DATA
+========================= */
 const inscData = ref({
     email: "",
     password: "",
@@ -90,22 +102,27 @@ const inscData = ref({
 
 const id = ref("")
 
-const getUserByEmail = async () => {
-    try {
-        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/email/${inscData.value.email}`)
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        id.value = await data.id
 
-        console.log("lid dans le local storage est" + localStorage.getItem("userId"))
-    } catch (error) {
+/* =========================
+   VALIDATION STATE
+========================= */
+const errors = ref({
+    email: false,
+    password: false,
+    firstName: false
+})
 
-        console.error('There was a problem with the fetch operation:', error);
-    }
-}
+const emailExists = ref(false)
+const isCheckingEmail = ref(false)
 
+const isNotValidEmail = ref(false)
+const isNotValidName = ref(false)
+const isNotValidPswd = ref(false)
+
+
+/* =========================
+   API CALLS
+========================= */
 const post = async (url, dataToSend) => {
     try {
         const response = await fetch(url, {
@@ -115,6 +132,7 @@ const post = async (url, dataToSend) => {
             },
             body: JSON.stringify(dataToSend),
         });
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -123,37 +141,43 @@ const post = async (url, dataToSend) => {
         console.log('Success:', data);
 
     } catch (err) {
-
         console.error('Error:', err);
     }
 }
 
-const errors = ref({
-    email: false,
-    password: false,
-    firstName: false
-})
+const getUserByEmail = async () => {
+    try {
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/email/${inscData.value.email}`)
 
-const emailExists = ref(false)
-const isCheckingEmail = ref(false)
-let debounceTimer = null
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-import { watch } from 'vue'
+        const data = await response.json();
+        id.value = await data.id
+
+        console.log("lid dans le local storage est" + localStorage.getItem("userId"))
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+}
 
 const checkEmailExists = async (email) => {
     try {
         const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/email/${email}`)
-
-        if (response.ok) {
-            return true // email existe
-        }
-
+        if (response.ok) return true
         return false
-
-    } catch (error) {
+    } catch {
         return false
     }
 }
+
+
+/* =========================
+   WATCHERS (EMAIL LIVE CHECK)
+========================= */
+let debounceTimer = null
 
 watch(() => inscData.value.email, (newEmail) => {
 
@@ -182,10 +206,10 @@ watch(() => inscData.value.email, (newEmail) => {
     }, 500)
 })
 
-const isNotValidEmail = ref(false)
-const isNotValidName = ref(false)
-const isNotValidPswd = ref(false)
 
+/* =========================
+   FORM SUBMIT
+========================= */
 const handleSubmit = async () => {
 
     errors.value = {
@@ -205,7 +229,6 @@ const handleSubmit = async () => {
     } else {
         isNotValidEmail.value = false
     }
-
 
     if (!inscData.value.password.trim()) {
         errors.value.password = true
