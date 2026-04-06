@@ -17,13 +17,18 @@
           </svg>
         </button>
       </div>
-      <div class="hidden lg:flex lg:gap-x-12">
+      <div v-if="!userConnecte" class="hidden lg:flex lg:gap-x-12">
         <a href="#" class="text-base/7 font-semibold text-white">Se connecter</a>
-        <a class="text-base/7 font-semibold text-white" @click="isOpen = true">
+        <a class="text-base/7 font-semibold text-white z-99998 hover:cursor-pointer" @click="isOpen = true">
           S'inscrire
         </a>
       </div>
-
+      <div v-else>
+        Bienvenue ,{{ user.firstName }} {{ user.lastName }}
+        <button class="hover:text-red-500 cursor-pointer" @click="deconnexion">
+          SE DECONNECTER
+        </button>
+      </div>
     </nav>
     <el-dialog>
       <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
@@ -64,11 +69,20 @@
   <Inscription :isOpen="isOpen" @close="isOpen = false" />
 </template>
 
-
 <script setup>
+import { inject } from "vue";
 import { ref } from 'vue'
 import Inscription from './inscription.vue';
 
+const userConnecte = inject("userConnecte");
+const setUserConnecte = inject("setUserConnecte");
 
+const user = inject("user");
+
+const deconnexion = () => {
+  setUserConnecte(false);
+  setUser("");
+};
 const isOpen = ref(false)
 </script>
+main

@@ -2,6 +2,7 @@ import BudgetMensuel from "@/components/BudgetMensuel.vue";
 import Home from "@/components/Home.vue";
 import Profile from "@/components/Profile.vue";
 import Page404 from "@/components/Page404.vue";
+import Connexion from "@/components/Connexion.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import Inscription from "@/components/inscription.vue";
 
@@ -22,6 +23,11 @@ const router = createRouter({
       path: "/budget",
       name: "budgetMensuel",
       component: BudgetMensuel,
+    },
+    {
+      path: "/connexion",
+      name: "connexion",
+      component: Connexion,
     },
     {
       path: "/:pathMatch(.*)*",
