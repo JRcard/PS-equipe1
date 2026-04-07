@@ -1,4 +1,3 @@
-https://budgetbakers.com/fr/
 <template>
 
   <div class="bg-background">
