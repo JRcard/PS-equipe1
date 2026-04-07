@@ -176,33 +176,28 @@
         <p class="text-text-secondaire text-sm">Entrez vos informations ci-dessous.</p>
       </div>
 
-      <!-- imput -->
-      <div class="flex flex-col gap-4">
+      <!-- input -->
+      <div class="flex flex-col gap-4 z-50">
         <input v-model="email" type="email" placeholder="Adresse email"
           class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
 
-        <input v-model="password" type="password" placeholder="Mot de passe"
-          class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+        <div class="flex gap-2">
+          <input v-model="password" :type="showPassword ? 'password' : 'text'" placeholder="Mot de passe"
+            class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+          <button type="button" @click="togglePasswordShow"
+            class="px-4 w-fit rounded-md bg-principale hover:opacity-80">
+            👁
+          </button>
+        </div>
       </div>
 
       <!-- boutons -->
-      <div class="flex flex-col gap-4 mt-2">
+      <div class="flex flex-col gap-4 mt-2 z-50">
         <!-- Bouton dégradé-->
         <button @click="connexion"
-          class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-gradient-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Se
-          connecter</button>
-
-        <div class="flex gap-3">
-          <!-- bouton couelur principale -->
-          <button
-            class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-principale hover:opacity-80 hover:shadow-[0_0_15px_#9034b066]">Action
-            1</button>
-
-          <!-- Bouton couleur secondaire -->
-          <button
-            class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-secondaire hover:opacity-80 hover:shadow-[0_0_15px_#096cfd66]">Action
-            2</button>
-        </div>
+          class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer">
+          Se connecter
+        </button>
       </div>
     </div>
     <InscriptionCard />
@@ -217,21 +212,14 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
-
-import { useRouter } from "vue-router";
+import { ref } from "vue";
 import InscriptionCard from "./inscriptionCard.vue";
 
-const router = useRouter();
-
-const userConnecte = inject("userConnecte");
-const setUserConnecte = inject("setUserConnecte");
+const user = ref(null);
+const userConnecte = ref(localStorage.getItem("userConnecte") === "true");
 
 const email = ref("");
 const password = ref("");
-
-const user = inject("user");
-const setUser = inject("setUser");
 
 const connexion = async () => {
   try {
@@ -249,12 +237,22 @@ const connexion = async () => {
   }
   if (user.value.email === email.value && user.value.password === password.value) {
     window.alert("Connexion réussi!");
-    setUserConnecte(true);
-    setUser(user.value);
-    router.push("/");
+
+    localStorage.setItem("userConnecte", "true");
+    localStorage.setItem("user", JSON.stringify(user.value));
+
+    window.location.reload();
   } else {
     window.alert("Mauvais user ou password");
   }
+};
+
+//Logique pour afficher MDP
+
+let showPassword = ref(true);
+
+const togglePasswordShow = () => {
+  showPassword.value = !showPassword.value;
 };
 </script>
 

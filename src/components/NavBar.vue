@@ -38,7 +38,11 @@
             <div class="flex items-center justify-between">
               <a href="#" class="-m-1.5 p-1.5">
                 <span class="sr-only">Stratos</span>
-                <img src="../assets/statos-logo-icon.png" alt="Stratos logo" class="h-8 w-auto" />
+                <img
+                  src="../assets/statos-logo-icon.png"
+                  alt="Stratos logo"
+                  class="h-8 w-auto"
+                />
               </a>
               <button type="button" command="close" commandfor="mobile-menu"
                 class="-m-2.5 rounded-md p-2.5 text-gray-200">
@@ -69,17 +73,30 @@
 </template>
 
 <script setup>
+<<<<<<< HEAD
 import { inject } from "vue";
 
+=======
+import { ref, onMounted } from "vue";
+import Inscription from "./inscription.vue";
+>>>>>>> main
 
-const userConnecte = inject("userConnecte");
-const setUserConnecte = inject("setUserConnecte");
+const userConnecte = ref(false);
+const user = ref(null);
 
-const user = inject("user");
+onMounted(() => {
+  userConnecte.value = localStorage.getItem("userConnecte") === "true";
+  user.value = JSON.parse(localStorage.getItem("user"));
+});
 
 const deconnexion = () => {
-  setUserConnecte(false);
-  setUser("");
+  localStorage.removeItem("userConnecte");
+  localStorage.removeItem("user");
+
+  userConnecte.value = false;
+  user.value = null;
+
+  window.location.reload();
 };
 
 </script>
