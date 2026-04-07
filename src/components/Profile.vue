@@ -58,7 +58,13 @@
 
                     <button v-if="!isDisable" type="button" @click="togglePasswordShow"
                         class="px-4 rounded-md bg-principale hover:opacity-80">
-                        👁
+                        <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" class="bi bi-eye">
+                            <path
+                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                            <path
+                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -68,7 +74,7 @@
 
                 <!-- MAISON -->
                 <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
-                    <h2 class="text-xl font-bold">Maison</h2>
+                    <h2 class="text-2xl font-bold">Maison</h2>
 
                     <input v-model="userAdresseOne.streetNumber" :disabled="isDisable" placeholder="Numéro"
                         class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
@@ -97,7 +103,7 @@
                         <option value="NU">Nunavut</option>
                     </select>
 
-                    <select v-model="userAdresseOne.country"
+                    <select v-model="userAdresseOne.country" :disabled="isDisable"
                         class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire">
                         <option value="" selected>Pays</option>
                         <option value="CA">Canada</option>
@@ -123,7 +129,7 @@
 
                 <!-- TRAVAIL -->
                 <div class="bg-card/5 p-8 rounded-2xl shadow-xl border border-white/5 flex flex-col gap-4">
-                    <h2 class="text-xl font-bold">Travail</h2>
+                    <h2 class="text-2xl font-bold">Travail</h2>
 
                     <input v-model="userAdresseTwo.streetNumber" :disabled="isDisable" placeholder="Numéro"
                         class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
@@ -136,7 +142,7 @@
 
                     <select v-model="userAdresseTwo.province" :disabled="isDisable"
                         class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire">
-                        <option value="">Province</option>
+                        <option value="" selected>Province</option>
                         <option value="QC">Québec</option>
                         <option value="ON">Ontario</option>
                         <option value="NL">Terre-Neuve-et-Labrador</option>
@@ -152,8 +158,8 @@
                         <option value="NU">Nunavut</option>
                     </select>
 
-                    <select v-model="userAdresseTwo.country"
-                        class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire">
+                    <select v-model="userAdresseTwo.country" :disabled="isDisable" class=" w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire
+                        px-3.5 py-2.5 rounded-xl focus:border-secondaire focus:ring-1 focus:ring-secondaire">
                         <option value="" selected>Pays</option>
                         <option value="CA">Canada</option>
                     </select>
@@ -273,6 +279,8 @@
 import { onMounted, ref } from 'vue';
 
 
+let userId = ref(localStorage.getItem("userId"))
+
 let showPassword = ref(true)
 
 const togglePasswordShow = () => {
@@ -295,7 +303,7 @@ const userData = ref({
 
 const fetchUser = async () => {
     try {
-        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}`)
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}`)
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -352,7 +360,7 @@ const setData = (target, data) => {
 
 const fetchUserAdresse = async () => {
     try {
-        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`)
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/addresses`)
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -372,7 +380,7 @@ const fetchUserAdresse = async () => {
 
 const fetchUserDetails = async (type) => {
     try {
-        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/${type}`)
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/${type}`)
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -404,7 +412,7 @@ const fetchUserDetails = async (type) => {
 
 const delDetailFunction = async (type) => {
     try {
-        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/${type}`, {
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/${type}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -447,7 +455,7 @@ const delDetailFunction = async (type) => {
 const delAdressFunction = async (type) => {
 
     try {
-        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses/${type}`, {
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/addresses/${type}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -514,11 +522,11 @@ const putFunction = async (url, dataToSend) => {
 }
 
 const handleSubmit = () => {
-    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}`, userData);
-    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`, userAdresseOne);
-    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/addresses`, userAdresseTwo);
-    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/banking-details`, bankDetail);
-    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${localStorage.getItem("userId")}/school-details`, schoolDetail);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}`, userData);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/addresses`, userAdresseOne);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/addresses`, userAdresseTwo);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/banking-details`, bankDetail);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/school-details`, schoolDetail);
 
 
     toggleEdit();
