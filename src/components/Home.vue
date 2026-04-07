@@ -367,7 +367,7 @@ https://budgetbakers.com/fr/
         </p>
       </div>
 
-      <!-- imput -->
+      <!-- input -->
       <div class="flex flex-col gap-4 z-50">
         <input
           v-model="email"
@@ -376,12 +376,21 @@ https://budgetbakers.com/fr/
           class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire"
         />
 
-        <input
-          v-model="password"
-          type="password"
-          placeholder="Mot de passe"
-          class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire"
-        />
+        <div class="flex gap-2">
+          <input
+            v-model="password"
+            :type="showPassword ? 'password' : 'text'"
+            placeholder="Mot de passe"
+            class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire"
+          />
+          <button
+            type="button"
+            @click="togglePasswordShow"
+            class="px-4 w-fit rounded-md bg-principale hover:opacity-80"
+          >
+            👁
+          </button>
+        </div>
       </div>
 
       <!-- boutons -->
@@ -434,6 +443,14 @@ const connexion = async () => {
   } else {
     window.alert("Mauvais user ou password");
   }
+};
+
+//Logique pour afficher MDP
+
+let showPassword = ref(true);
+
+const togglePasswordShow = () => {
+  showPassword.value = !showPassword.value;
 };
 </script>
 
