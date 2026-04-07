@@ -142,20 +142,16 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
-
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const userConnecte = inject("userConnecte");
-const setUserConnecte = inject("setUserConnecte");
+const user = ref(null);
+const userConnecte = ref(localStorage.getItem("userConnecte") === "true");
 
 const email = ref("");
 const password = ref("");
-
-const user = inject("user");
-const setUser = inject("setUser");
 
 const connexion = async () => {
   try {
@@ -176,8 +172,10 @@ const connexion = async () => {
     user.value.password === password.value
   ) {
     window.alert("Connexion réussi!");
-    setUserConnecte(true);
-    setUser(user.value);
+
+    localStorage.setItem("userConnecte", "true");
+    localStorage.setItem("user", JSON.stringify(user.value));
+
     router.push("/");
   } else {
     window.alert("Mauvais user ou password");
