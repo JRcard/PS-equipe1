@@ -64,24 +64,22 @@
             <button
               type="submit"
               @click="connexion"
-              class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-gradient-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]"
+              class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer"
             >
               Se connecter
             </button>
+            <p class="text-text-secondaire text-sm text-center mt-5">
+              Vous n'avez pas encore de compte?
+            </p>
 
             <div class="flex gap-3">
               <!-- bouton couelur principale -->
-              <button
-                class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-principale hover:opacity-80 hover:shadow-[0_0_15px_#9034b066]"
-              >
-                Action 1
-              </button>
 
-              <!-- Bouton couleur secondaire -->
               <button
-                class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-secondaire hover:opacity-80 hover:shadow-[0_0_15px_#096cfd66]"
+                @click="$router.push('/inscription')"
+                class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer"
               >
-                Action 2
+                Inscription
               </button>
             </div>
           </div>
@@ -176,7 +174,7 @@ const connexion = async () => {
     localStorage.setItem("userConnecte", "true");
     localStorage.setItem("user", JSON.stringify(user.value));
 
-    router.push("/");
+    window.location.href = "/";
   } else {
     window.alert("Mauvais user ou password");
   }

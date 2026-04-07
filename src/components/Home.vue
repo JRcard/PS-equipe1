@@ -350,6 +350,8 @@ https://budgetbakers.com/fr/
     </div>
   </div>
 
+  <div v-if="userConnecte" class="mt-100"></div>
+
   <div
     v-if="!userConnecte"
     class="bg-background text-sm/6 flex items-center justify-center mt-20"
@@ -387,7 +389,7 @@ https://budgetbakers.com/fr/
         <!-- Bouton dégradé-->
         <button
           @click="connexion"
-          class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-gradient-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]"
+          class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer"
         >
           Se connecter
         </button>

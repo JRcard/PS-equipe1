@@ -139,6 +139,8 @@ const deconnexion = () => {
 
   userConnecte.value = false;
   user.value = null;
+
+  window.location.reload();
 };
 const isOpen = ref(false);
 </script>
