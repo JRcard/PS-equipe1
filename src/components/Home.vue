@@ -1,4 +1,3 @@
-https://budgetbakers.com/fr/
 <template>
   <div class="bg">
     <div class="px-6 pt-14 lg:px-8">
