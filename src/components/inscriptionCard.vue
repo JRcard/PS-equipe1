@@ -136,7 +136,7 @@ const post = async (url, dataToSend) => {
         }
 
         const data = await response.json();
-        console.log('Success:', data);
+
 
     } catch (err) {
         console.error('Error:', err);
@@ -153,9 +153,7 @@ const getUserByEmail = async () => {
 
         const data = await response.json();
         id.value = await data.id
-
-        console.log("lid dans le local storage est" + localStorage.getItem("userId"))
-
+        localStorage.setItem("user", JSON.stringify(user.value))
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
@@ -250,8 +248,11 @@ const handleSubmit = async () => {
 
     await getUserByEmail()
     localStorage.setItem("userId", id.value)
+    localStorage.setItem("userConnecte", true)
 
-    emit('close')
+
+
+
 }
 </script>
 
