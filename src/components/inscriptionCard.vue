@@ -1,37 +1,71 @@
 <template>
-    <div class="relative isolate px-6 pt-14 lg:px-8 h-[80vh] flex items-center justify-center flex-col">
-        <!-- BLOB TOP -->
-        <div aria-hidden="true"
-            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
-                class="relative left-[calc(50%-11rem)] aspect-1155/678 w-xl rotate-30 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%-30rem)] sm:w-6xl">
-            </div>
+
+
+    <!-- card-->
+    <div class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-full max-w-md flex flex-col gap-6">
+        <div>
+            <h2 class="text-2xl font-bold mb-1">Inscription</h2>
+            <p class="text-text-secondaire text-sm">Entrez vos informations ci-dessous.</p>
         </div>
 
-        <!-- card-->
+        <!-- imput -->
+        <form class="flex flex-col gap-4" novalidate @submit.prevent="handleSubmit">
+            <input type="email" placeholder="Adresse email" v-model="inscData.email" :class="[
+                'w-full bg-input-bg border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300',
+                errors.email ? 'border-red-500' : 'border-input-border'
+            ]" />
+            <p v-if="isNotValidEmail" class="text-xs text-red-500">
+                Cet email est invalide
+            </p>
+            <!-- messages -->
+            <p v-if="isCheckingEmail" class="text-xs text-gray-400">
+                Vérification...
+            </p>
 
-        <InscriptionCard />
-        <p class="mt-2">Déjà inscrit ?</p>
-        <RouterLink to="/connexion"
-            class="hover:cursor-pointer text-principale hover:text-secondaire transition-all duration-300">
-            Connectez-vous
-        </RouterLink>
+            <p v-if="emailExists" class="text-xs text-red-500">
+                Cet email est déjà utilisé
+            </p>
 
+            <div class="flex gap-3">
+                <input :type="showPassword ? 'password' : 'text'" placeholder="Mot de passe" v-model="inscData.password"
+                    :class="[
+                        'w-full bg-input-bg border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300',
+                        errors.password ? 'border-red-500' : 'border-input-border'
+                    ]"
+                    class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
 
+                <button type="button" @click="togglePasswordShow"
+                    class="px-4 rounded-md bg-principale hover:opacity-80">
+                    👁
+                </button>
 
-        <!-- BLOB BOTTOM -->
-        <div aria-hidden="true"
-            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
-            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
-                class="relative left-[calc(50%+3rem)] aspect-1155/678 w-xl -translate-x-1/2 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%+36rem)] sm:w-6xl">
             </div>
-        </div>
+            <p v-if="isNotValidPswd" class="text-xs text-red-500">
+                Le mot de passe est obligatoire
+            </p>
+            <input type="text" placeholder="Prénom" v-model="inscData.firstName" :class="[
+                'w-full bg-input-bg border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300',
+                errors.firstName ? 'border-red-500' : 'border-input-border'
+            ]"
+                class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+            <p v-if="isNotValidName" class="text-xs text-red-500">
+                Le prénom est obligatoire
+            </p>
+
+            <button type="submit" class=" w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center
+                    transition-all duration-300 bg-linear-to-r from-principale to-secondaire
+                    hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80]">Inscription</button>
+
+        </form>
+
+
     </div>
+
+
 </template>
 
 <script setup>
 import { ref, watch } from 'vue'
-import InscriptionCard from './inscriptionCard.vue'
 
 
 /* =========================
@@ -221,4 +255,5 @@ const handleSubmit = async () => {
 }
 </script>
 
-<style></style>
+
+<style scoped></style>

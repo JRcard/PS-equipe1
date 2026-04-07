@@ -25,12 +25,12 @@ provide("setUser", setUser);
 </script>
 
 <template>
-	<!-- ne pas oublier de remplacer "nomDeLaVariable" par la vraie variable / Si l'utilisateur n'est pas connecté on affiche la Navbar -->
-	<NavBar v-if="!nomDeLaVariable" />
-	<!-- si utilisateur connecté, on affiche la SideBar -->
-	<SideBar v-else />
-	<RouterView />
-	<Footer />
+  <!-- ne pas oublier de remplacer "nomDeLaVariable" par la vraie variable / Si l'utilisateur n'est pas connecté on affiche la Navbar -->
+  <NavBar v-if="!nomDeLaVariable" />
+  <!-- si utilisateur connecté, on affiche la SideBar -->
+  <SideBar v-else />
+  <RouterView />
+  <Footer />
 </template>
 
 <style></style>
