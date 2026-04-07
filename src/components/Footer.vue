@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div
-      class="bg-linear-to-t from-principale/10 to-transparent h-[15vh] flex items-center justify-between p-20 mt-30"
+      class="bg-linear-to-t from-principale/10 to-transparent lg:h-[15vh] flex items-center justify-between p-5 lg:p-20 lg:mt-30 flex-col lg:flex-row text-center lg:text-left"
     >
       <img class="h-[15vh]" :src="logo" alt="Logo Stratos" />
 
