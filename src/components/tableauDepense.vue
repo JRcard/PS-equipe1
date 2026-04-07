@@ -34,7 +34,7 @@
 							</td>
 
 							<td class="w-16 py-2">
-								<i class="bx bxs-trash-alt text-principale text-2xl cursor-pointer" @click.stop="del(transaction.id)"></i>
+								<i class="bx bxs-trash-alt text-principale text-2xl cursor-pointer" @click.stop="del(transaction.id)" alt="Icône de poubelle"></i>
 							</td>
 						</template>
 
@@ -65,15 +65,15 @@
 
 							<td class="w-16 py-2">
 								<button @click.stop="save()">
-									<i class="bx bxs-check-shield text-green-500 text-2xl cursor-pointer"></i>
+									<i class="bx bxs-check-shield text-green-500 text-2xl cursor-pointer" alt="Icône de sauvegarde"></i>
 								</button>
 							</td>
 						</template>
 					</tr>
 
 					<!-- LIGNE AJOUT -->
-					<tr class="border-b-2 border-b-input-border cursor-pointer" @click="ajout()">
-						<td class="w-48 py-2">Clique pour ajouter</td>
+					<tr class="border-b-2 border-b-input-border cursor-pointer hover:shadow-[0_0_15px_#096cfd66]" @click="ajout()">
+						<td class="w-48 py-2 font-bold text-secondaire">Clique pour ajouter</td>
 						<td class="w-36 py-2"></td>
 						<td class="w-24 py-2"></td>
 						<td class="w-32 py-2"></td>
