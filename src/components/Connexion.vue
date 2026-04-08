@@ -182,8 +182,8 @@ const connexion = async () => {
     localStorage.setItem("userConnecte", "true");
     localStorage.setItem("user", JSON.stringify(user.value));
 
-    //Redirection vers le Home
-    window.location.href = "/";
+    //Redirection vers le Budget
+    window.location.href = "/budget";
   } else {
     window.alert("Mauvais user ou mot de passe");
   }
