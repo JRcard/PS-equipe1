@@ -44,21 +44,24 @@
       <div v-if="!userConnecte" class="hidden lg:flex lg:gap-x-12">
         <RouterLink
           to="/connexion"
-          class="text-base/7 font-semibold text-white z-99"
+          class="text-base/7 font-semibold text-white z-99 hover:text-secondaire"
         >
           Se connecter</RouterLink
         >
         <RouterLink
           to="/inscription"
-          class="text-base/7 font-semibold text-white z-99 hover:cursor-pointer"
+          class="text-base/7 font-semibold text-white z-99 hover:text-secondaire"
         >
           S'inscrire</RouterLink
         >
       </div>
       <div v-else>
         Bienvenue ,{{ user.firstName }} {{ user.lastName }}
-        <button class="hover:text-red-500 cursor-pointer" @click="deconnexion">
-          SE DECONNECTER
+        <button
+          class="mt-5 w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer"
+          @click="deconnexion"
+        >
+          Deconnexion
         </button>
       </div>
     </nav>

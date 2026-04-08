@@ -151,35 +151,42 @@
 <script setup>
 import { ref } from "vue";
 
+//Creation des const du User et inputs
 const user = ref(null);
 const userConnecte = ref(localStorage.getItem("userConnecte") === "true");
 
 const email = ref("");
 const password = ref("");
 
+//Systeme de connexion via API emailUser
 const connexion = async () => {
   try {
     const url = `https://money-pie-1.fly.dev/api/v1/users/email/` + email.value;
     const res = await fetch(url);
     const data = await res.json();
+
     user.value = data;
   } catch (err) {
     console.log(err);
   }
 
+  //Loading quand API est lent
   if (!user.value) {
     window.alert("Utilisateur  pas encore chargé");
     return;
   }
+  //Match si le email et le password du input est bon
   if (
     user.value.email === email.value &&
     user.value.password === password.value
   ) {
     window.alert("Connexion réussi !");
 
+    //Update le localSotrage avec le User
     localStorage.setItem("userConnecte", "true");
     localStorage.setItem("user", JSON.stringify(user.value));
 
+    //Redirection vers le Home
     window.location.href = "/";
   } else {
     window.alert("Mauvais user ou mot de passe");
