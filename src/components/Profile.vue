@@ -279,7 +279,8 @@
 import { onMounted, ref } from 'vue';
 
 
-let userId = ref(localStorage.getItem("userId"))
+let user = JSON.parse(localStorage.getItem("user"));
+let userId = ref(user.id)
 
 let showPassword = ref(true)
 
