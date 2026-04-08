@@ -1,6 +1,6 @@
 <template>
 	<!-- Des burst de couleur -->
-	<div class="relative isolate px-6 pt-14 lg:px-8">
+	<div class="relative isolate px-6 pt-14 lg:px-8 -z-99">
 		<div aria-hidden="true" class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
 			<div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 rotate-70 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"></div>
 		</div>
@@ -8,7 +8,7 @@
 	<div class="max-w-475 mx-auto mt-10">
 		<div class="flex text-xl md:text-2xl font-bold ml-5">
 			<h3 class="mr-2 mb-10">Votre balance ce mois-ci :</h3>
-			<p v-if="balance > 0">{{ balance }}$</p>
+			<p v-if="balance >= 0">{{ balance }}$</p>
 			<p v-else class="text-red-500">{{ balance }}$</p>
 		</div>
 		<div></div>
@@ -37,9 +37,7 @@ import { computed, onMounted, ref } from "vue";
 import TableauRevenu from "./tableauRevenu.vue";
 import TableauDepense from "./tableauDepense.vue";
 
-const userId = 2; /* ref(parseInt(localStorage.getItem("userId"))); */
-
-const url = `https://money-pie-1.fly.dev/api/v1/users/${userId}/transactions`;
+const userConnecte = localStorage.getItem("userConnecte");
 const revenueList = ref([]);
 const expenseList = ref([]);
 const data = ref([]);
@@ -149,7 +147,12 @@ const deleteTransaction = async (id) => {
 
 /* Lors du chargement de la page, la fonction useAPI() est appelé automatiquement pour peupler les tableaux */
 onMounted(() => {
-	useAPI(url);
+	if (userConnecte) {
+		const user = JSON.parse(localStorage.getItem("user"));
+		const userId = user.id;
+		const url = `https://money-pie-1.fly.dev/api/v1/users/${userId}/transactions`;
+		useAPI(url);
+	} else return;
 });
 </script>
 
