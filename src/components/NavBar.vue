@@ -1,10 +1,7 @@
 <template>
   <header class="inset-x-0 top-0 z-50">
-    <nav
-      aria-label="Global"
-      class="flex items-center justify-between p-6 lg:px-8"
-    >
-      <RouterLink to="/" class="text-base/7 font-semibold text-white z-99">
+    <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
+      <RouterLink to="home" class="text-base/7 font-semibold text-white z-99">
         <div class="flex lg:flex-1">
           <div href="#" class="-m-1.5 p-1.5">
             <span class="sr-only">Stratos</span>
