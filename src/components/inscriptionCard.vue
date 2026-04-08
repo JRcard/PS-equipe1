@@ -250,9 +250,6 @@ const handleSubmit = async () => {
     localStorage.setItem("userId", id.value)
     localStorage.setItem("userConnecte", true)
 
-
-
-
 }
 </script>
 
