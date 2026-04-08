@@ -37,6 +37,8 @@ import { computed, onMounted, ref } from "vue";
 import TableauRevenu from "./tableauRevenu.vue";
 import TableauDepense from "./tableauDepense.vue";
 
+let url = "";
+
 const userConnecte = localStorage.getItem("userConnecte");
 const revenueList = ref([]);
 const expenseList = ref([]);
@@ -150,7 +152,7 @@ onMounted(() => {
 	if (userConnecte) {
 		const user = JSON.parse(localStorage.getItem("user"));
 		const userId = user.id;
-		const url = `https://money-pie-1.fly.dev/api/v1/users/${userId}/transactions`;
+		url = `https://money-pie-1.fly.dev/api/v1/users/${userId}/transactions`;
 		useAPI(url);
 	} else return;
 });
