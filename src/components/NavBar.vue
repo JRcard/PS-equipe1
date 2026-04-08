@@ -25,11 +25,11 @@
       <!-- Si l'utilisateur est connecté, on affichce ceci -->
       <div v-else class="hidden lg:flex items-center">
         <div class="flex gap-x-12 items-center">
-          <p>Bienvenue ,{{ user.firstName }} {{ user.lastName }}</p>
+          <p>Bienvenue, {{ user.firstName }} {{ user.lastName }}</p>
           <RouterLink to="profil" class="text-base/7 font-semibold text-white z-99 hover:text-secondaire">Profil</RouterLink>
           <RouterLink to="budget" class="text-base/7 font-semibold text-white z-99 hover:cursor-pointer hover:text-secondaire">Budget mensuel</RouterLink>
         </div>
-        <button class="ml-8.5 rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-secondaire focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondaire" @click="deconnexion">SE DECONNECTER</button>
+        <button class="ml-8.5 rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-secondaire focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondaire cursor-pointer" @click="deconnexion">SE DECONNECTER</button>
       </div>
     </nav>
     <!--Menu mobile -->
@@ -38,7 +38,7 @@
         <div tabindex="0" class="fixed inset-0 focus:outline-none">
           <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
             <div class="flex px-3 items-center justify-between">
-              <RouterLink to="/" class="-m-1.5 p-1.5">
+              <RouterLink to="home" class="-m-1.5 p-1.5">
                 <span class="sr-only">Stratos</span>
                 <img src="../assets/statos-logo-icon.png" alt="Stratos logo" class="h-8 w-auto" />
               </RouterLink>
