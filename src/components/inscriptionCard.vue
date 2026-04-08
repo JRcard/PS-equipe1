@@ -98,8 +98,8 @@ const inscData = ref({
     isActive: true
 })
 
-const id = ref("")
 
+const user = ref(null);
 
 /* =========================
    VALIDATION STATE
@@ -152,8 +152,8 @@ const getUserByEmail = async () => {
         }
 
         const data = await response.json();
-        id.value = await data.id
-        localStorage.setItem("user", JSON.stringify(user.value))
+        user.value = data;
+
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
@@ -247,8 +247,10 @@ const handleSubmit = async () => {
     await post(`https://money-pie-1.fly.dev/api/v1/users`, inscData.value)
 
     await getUserByEmail()
-    localStorage.setItem("userId", id.value)
-    localStorage.setItem("userConnecte", true)
+    localStorage.setItem("userConnecte", "true");
+    localStorage.setItem("user", JSON.stringify(user.value));
+    console.log(localStorage.getItem("user"))
+    window.location.href = "/profil"
 
 }
 </script>
