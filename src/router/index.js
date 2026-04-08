@@ -30,6 +30,11 @@ const router = createRouter({
       component: Connexion,
     },
     {
+      path: "/inscription",
+      name: "inscription",
+      component: Inscription,
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "Page404",
       component: Page404,
