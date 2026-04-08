@@ -60,7 +60,7 @@
                   </div>
                   <!-- Si l'utilisateur est connecté, on affichce ceci -->
                   <div v-else class="text-white space-y-2 py-6">
-                    <p class="px-3">Bienvenue ,{{ user.firstName }} {{ user.lastName }}</p>
+                    <p class="px-3">Bienvenue, {{ user.firstName }} {{ user.lastName }}</p>
                     <a href="profil" class="block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Profil</a>
                     <a href="budget" class="block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Budget mensuel</a>
                     <RouterLink class="rmx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5" @click="deconnexion">SE DECONNECTER</RouterLink>
