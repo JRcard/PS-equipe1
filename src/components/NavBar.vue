@@ -1,6 +1,9 @@
 <template>
   <header class="inset-x-0 top-0 z-50">
-    <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
+    <nav
+      aria-label="Global"
+      class="flex items-center justify-between p-6 lg:px-8"
+    >
       <RouterLink to="/" class="text-base/7 font-semibold text-white z-99">
         <div class="flex lg:flex-1">
           <div href="#" class="-m-1.5 p-1.5">
@@ -83,13 +86,22 @@ import { RouterLink } from "vue-router";
 const userConnecte = ref(false);
 const user = ref(null);
 
-/* Logique pour récuperer l'objet de l'utilisateur et savoir s'il est connecté ou non */
-onMounted(() => {
+//Recherche du User au startUp
+onMounted(async () => {
   userConnecte.value = localStorage.getItem("userConnecte") === "true";
-  user.value = JSON.parse(localStorage.getItem("user"));
+  user.value = JSON.parse(localStorage.getItem("user")); //Si le user est donné par Id (inscription)
+  if (userConnecte.value && user.value === null) {
+    const userId = JSON.parse(localStorage.getItem("userId"));
+
+    const url = `https://money-pie-1.fly.dev/api/v1/users/` + userId;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    user.value = data;
+  }
 });
 
-/* Logique de la déconnection */
+//Système de deconnexion et clean-up du LocalStorage User
 const deconnexion = () => {
   localStorage.removeItem("userConnecte");
   localStorage.removeItem("user");

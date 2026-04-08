@@ -30,7 +30,10 @@
         ></div>
       </div>
 
-      <div v-if="!userConnecte" class="lg:w-[50vw] w-full flex justify-center">
+      <div
+        v-if="!userConnecte"
+        class="lg:w-[50vw] w-full flex justify-center flex-col items-center"
+      >
         <div
           class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-full max-w-md flex flex-col gap-6 item"
         >
@@ -77,22 +80,15 @@
             >
               Se connecter
             </button>
-            <p class="text-text-secondaire text-sm text-center mt-5">
-              Vous n'avez pas encore de compte ?
-            </p>
-
-            <div class="flex gap-3">
-              <!-- bouton Inscription -->
-
-              <button
-                @click="$router.push('/inscription')"
-                class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer"
-              >
-                Inscription
-              </button>
-            </div>
           </div>
         </div>
+        <p class="mt-2">Pas encore de compte ?</p>
+        <RouterLink
+          to="/inscription"
+          class="hover:cursor-pointer text-principale hover:text-secondaire transition-all duration-300"
+        >
+          Inscrivez-vous
+        </RouterLink>
       </div>
 
       <div v-else>
@@ -151,35 +147,42 @@
 <script setup>
 import { ref } from "vue";
 
+//Creation des const du User et inputs
 const user = ref(null);
 const userConnecte = ref(localStorage.getItem("userConnecte") === "true");
 
 const email = ref("");
 const password = ref("");
 
+//Systeme de connexion via API emailUser
 const connexion = async () => {
   try {
     const url = `https://money-pie-1.fly.dev/api/v1/users/email/` + email.value;
     const res = await fetch(url);
     const data = await res.json();
+
     user.value = data;
   } catch (err) {
     console.log(err);
   }
 
+  //Loading quand API est lent
   if (!user.value) {
     window.alert("Utilisateur  pas encore chargé");
     return;
   }
+  //Match si le email et le password du input est bon
   if (
     user.value.email === email.value &&
     user.value.password === password.value
   ) {
     window.alert("Connexion réussi !");
 
+    //Update le localSotrage avec le User
     localStorage.setItem("userConnecte", "true");
     localStorage.setItem("user", JSON.stringify(user.value));
 
+    //Redirection vers le Home
     window.location.href = "/";
   } else {
     window.alert("Mauvais user ou mot de passe");
