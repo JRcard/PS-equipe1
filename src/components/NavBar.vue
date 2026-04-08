@@ -1,7 +1,7 @@
 <template>
   <header class="inset-x-0 top-0 z-50">
     <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
-      <RouterLink to="home" class="text-base/7 font-semibold text-white z-99">
+      <RouterLink to="/" class="text-base/7 font-semibold text-white z-99">
         <div class="flex lg:flex-1">
           <div href="#" class="-m-1.5 p-1.5">
             <span class="sr-only">Stratos</span>
@@ -38,7 +38,7 @@
         <div tabindex="0" class="fixed inset-0 focus:outline-none">
           <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
             <div class="flex px-3 items-center justify-between">
-              <RouterLink to="home" class="-m-1.5 p-1.5">
+              <RouterLink to="/" class="-m-1.5 p-1.5">
                 <span class="sr-only">Stratos</span>
                 <img src="../assets/statos-logo-icon.png" alt="Stratos logo" class="h-8 w-auto" />
               </RouterLink>
@@ -63,7 +63,7 @@
                     <p class="px-3">Bienvenue, {{ user.firstName }} {{ user.lastName }}</p>
                     <a href="profil" class="block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Profil</a>
                     <a href="budget" class="block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Budget mensuel</a>
-                    <RouterLink class="rmx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5" @click="deconnexion">SE DECONNECTER</RouterLink>
+                    <a class="rmx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5" @click="deconnexion">SE DECONNECTER</a>
                   </div>
                 </div>
               </div>
