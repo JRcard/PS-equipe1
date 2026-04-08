@@ -30,7 +30,10 @@
         ></div>
       </div>
 
-      <div v-if="!userConnecte" class="lg:w-[50vw] w-full flex justify-center">
+      <div
+        v-if="!userConnecte"
+        class="lg:w-[50vw] w-full flex justify-center flex-col items-center"
+      >
         <div
           class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-full max-w-md flex flex-col gap-6 item"
         >
@@ -77,22 +80,15 @@
             >
               Se connecter
             </button>
-            <p class="text-text-secondaire text-sm text-center mt-5">
-              Vous n'avez pas encore de compte ?
-            </p>
-
-            <div class="flex gap-3">
-              <!-- bouton Inscription -->
-
-              <button
-                @click="$router.push('/inscription')"
-                class="w-full px-3.5 py-2.5 rounded-md font-semibold text-white flex items-center justify-center transition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer"
-              >
-                Inscription
-              </button>
-            </div>
           </div>
         </div>
+        <p class="mt-2">Pas encore de compte ?</p>
+        <RouterLink
+          to="/inscription"
+          class="hover:cursor-pointer text-principale hover:text-secondaire transition-all duration-300"
+        >
+          Inscrivez-vous
+        </RouterLink>
       </div>
 
       <div v-else>
