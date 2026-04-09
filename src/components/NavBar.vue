@@ -31,10 +31,15 @@
       <div v-else class="hidden lg:flex items-center">
         <div class="flex gap-x-12 items-center">
           <p>Bienvenue, {{ user.firstName }} {{ user.lastName }}</p>
-          <RouterLink to="profil" class="text-base/7 font-semibold text-white z-99 hover:text-secondaire">Profil</RouterLink>
-          <RouterLink to="budget" class="text-base/7 font-semibold text-white z-99 hover:cursor-pointer hover:text-secondaire">Budget mensuel</RouterLink>
+          <RouterLink to="profil" class="text-base/7 font-semibold text-white z-99 hover:text-secondaire">Profil
+          </RouterLink>
+          <RouterLink to="budget"
+            class="text-base/7 font-semibold text-white z-99 hover:cursor-pointer hover:text-secondaire">Budget mensuel
+          </RouterLink>
         </div>
-        <button class="ml-8.5 rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-secondaire focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondaire cursor-pointer" @click="deconnexion">SE DECONNECTER</button>
+        <button
+          class="ml-8.5 rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-secondaire focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondaire cursor-pointer"
+          @click="deconnexion">SE DECONNECTER</button>
       </div>
     </nav>
     <!--Menu mobile -->
@@ -72,9 +77,13 @@
                   <!-- Si l'utilisateur est connecté, on affichce ceci -->
                   <div v-else class="text-white space-y-2 py-6">
                     <p class="px-3">Bienvenue, {{ user.firstName }} {{ user.lastName }}</p>
-                    <a href="profil" class="block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Profil</a>
-                    <a href="budget" class="block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Budget mensuel</a>
-                    <a class="rmx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5" @click="deconnexion">SE DECONNECTER</a>
+                    <a href="profil"
+                      class="block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Profil</a>
+                    <a href="budget"
+                      class="block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Budget
+                      mensuel</a>
+                    <a class="rmx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                      @click="deconnexion">SE DECONNECTER</a>
                   </div>
                 </div>
               </div>
@@ -87,7 +96,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed, watch, onUpdated } from "vue";
 
 import { RouterLink } from "vue-router";
 
@@ -96,8 +105,7 @@ const user = ref(null);
 
 //Recherche du User au startUp
 onMounted(async () => {
-  userConnecte.value = localStorage.getItem("userConnecte") === "true";
-  user.value = JSON.parse(localStorage.getItem("user")); //Si le user est donné par Id (inscription)
+
   if (userConnecte.value && user.value === null) {
     const userId = JSON.parse(localStorage.getItem("userId"));
 
@@ -107,6 +115,18 @@ onMounted(async () => {
 
     user.value = data;
   }
+
+});
+
+const loadUserFromStorage = () => {
+  userConnecte.value = localStorage.getItem("userConnecte") === "true";
+  user.value = JSON.parse(localStorage.getItem("user"));
+};
+
+onMounted(() => {
+  loadUserFromStorage();
+
+  window.addEventListener("userUpdated", loadUserFromStorage);
 });
 
 //Système de deconnexion et clean-up du LocalStorage User
