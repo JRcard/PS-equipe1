@@ -445,8 +445,8 @@ const connexion = async () => {
     localStorage.setItem("userConnecte", "true");
     localStorage.setItem("user", JSON.stringify(user.value));
 
-    //Relaoding de la page pour appliquer les changements
-    window.location.reload();
+    //Redirection vers le Budget
+    window.location.href = "/budget";
   } else {
     window.alert("Mauvais user ou password");
   }
