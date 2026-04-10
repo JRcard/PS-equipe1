@@ -187,12 +187,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from 'vue';
 
-let user = JSON.parse(localStorage.getItem("user"));
-let userId = ref(user.id);
 
-let showPassword = ref(true);
+let user = JSON.parse(localStorage.getItem("user"))
+let newUser = ref(null)
+let userId = ref(user.id)
+let showPassword = ref(true)
 
 const togglePasswordShow = () => {
   showPassword.value = !showPassword.value;
@@ -213,22 +214,28 @@ const userData = ref({
 });
 
 const fetchUser = async () => {
-  try {
-    const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}`);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    try {
+        const response = await fetch(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}`)
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        newUser.value = data
+
+        userData.value.firstName = data.firstName
+        userData.value.lastName = data.lastName
+        userData.value.email = data.email
+        userData.value.birthDate = data.birthDate
+        userData.value.password = data.password
+
+        localStorage.setItem("user", JSON.stringify(newUser.value));
+
+        window.dispatchEvent(new Event("userUpdated"));
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
     }
-    const data = await response.json();
-    userData.value.firstName = data.firstName;
-    userData.value.lastName = data.lastName;
-    userData.value.email = data.email;
-    userData.value.birthDate = data.birthDate;
-    userData.value.password = data.password;
-    console.log(userData);
-  } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
-  }
-};
+}
 
 const userAdresseOne = ref({
   streetNumber: "",
@@ -263,8 +270,8 @@ const bankDetail = ref({
 });
 
 const setData = (target, data) => {
-  target.value = { ...data };
-};
+    target.value = { ...data };
+}
 
 const fetchUserAdresse = async () => {
   try {
@@ -395,17 +402,24 @@ const delAdressFunction = async (type) => {
   }
 };
 
+
 const putFunction = async (url, dataToSend) => {
-  try {
-    const response = await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataToSend.value),
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend.value),
+        });
+
+        fetchUser();
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+    } catch (err) {
+        console.error('Error:', err);
     }
 
     const data = await response.json();
@@ -414,6 +428,7 @@ const putFunction = async (url, dataToSend) => {
     console.error("Error:", err);
   }
 };
+
 
 const handleSubmit = () => {
   putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}`, userData);
@@ -434,6 +449,7 @@ onMounted(() => {
   fetchUserDetails("school-details");
   fetchUserDetails("banking-details");
 });
+
 </script>
 
 <style></style>
