@@ -5,21 +5,24 @@
         <div aria-hidden="true" class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
           <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 rotate-70 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"></div>
         </div>
-        <div class="max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div class="hidden sm:mb-8 sm:flex">
-            <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">Solutions financières complètes pour tous les besoins</div>
-          </div>
-          <div>
-            <h1 class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl">Vos finances en un seul endroit</h1>
-            <p class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">Le savoir, c'est le pouvoir. Vous devez connaître vos finances pour les maîtriser. Wallet rassemble tout votre argent dans une seule application, sous votre contrôle, où que vous soyez.</p>
-            <div v-if="!userConnecte" class="mt-10 flex items-center gap-x-6">
-              <RouterLink to="connexion" class="rounded-md px-3.5 py-2.5 text-md font-semibold text-white shadow-xsransition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer">Se connecter</RouterLink>
-              <RouterLink to="inscription" class="text-md font-semibold text-white hover:text-secondaire">S'inscrire <span aria-hidden="true">→</span></RouterLink>
+        <div class="w-full flex-col md:flex-row flex py-10 sm:py-34 lg:py-20">
+          <div class="max-w-2xl md:justify-start justify-center sm:items-center md:items-start flex-col flex text-center md:text-left">
+            <div class="hidden sm:mb-8 sm:flex">
+              <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10">Solutions financières complètes pour tous les besoins</div>
+            </div>
+            <div>
+              <h1 class="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl">Vos finances en un seul endroit</h1>
+              <p class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">Le savoir, c'est le pouvoir. Vous devez connaître vos finances pour les maîtriser. Wallet rassemble tout votre argent dans une seule application, sous votre contrôle, où que vous soyez.</p>
+              <div v-if="!userConnecte" class="mt-10 flex items-center md:justify-start justify-center gap-x-6">
+                <RouterLink to="connexion" class="rounded-md px-3.5 py-2.5 text-md font-semibold text-white shadow-xsransition-all duration-300 bg-linear-to-r from-principale to-secondaire hover:shadow-[0_0_15px_#9034b080,0_0_15px_#096cfd80] cursor-pointer">Se connecter</RouterLink>
+                <RouterLink to="inscription" class="text-md font-semibold text-white hover:text-secondaire">S'inscrire <span aria-hidden="true">→</span></RouterLink>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="w-full max-w-2xl flex justify-center">
-          <img src="../assets/mobile-app.png" alt="photo de l'application mobile Stratos " class="max-w-75" />
+
+          <div class="flex w-full justify-center">
+            <img src="../assets/images/mobile-app.png" alt="photo de l'application mobile Stratos " class="w-full max-w-xs md:max-w-xs lg:max-w-xs h-auto object-contain pt-14 md:pt-0" />
+          </div>
         </div>
       </div>
       <div aria-hidden="true" class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
@@ -232,7 +235,7 @@
       <h2 class="text-base/7 font-semibold text-white">Prenez vos finances en main</h2>
       <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-white sm:text-6xl">Rejoingnez le mouvement</p>
     </div>
-    <div class="flex items-center mt-20 justify-around m-auto w-full">
+    <div class="flex flex-col gap-8 md:flex-row items-center mt-20 justify-around m-auto w-full">
       <!-- card-->
       <div class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-full max-w-md flex flex-col gap-6">
         <div>

@@ -4,7 +4,7 @@
     <div class="bg-card border-b -mt-2 p-8 shadow-xl h-screen border border-white/5 w-full max-w-md flex flex-col gap-6">
       <a href="#" class="border-b border-white/5 pb-6">
         <span class="sr-only">Stratos</span>
-        <img src="../assets/statos-logo-horizontal.png" alt="Stratos logo" class="h-8 w-auto" />
+        <img src="../assets/images/statos-logo-horizontal.png" alt="Stratos logo" class="h-8 w-auto" />
       </a>
       <div class="border-b border-white/5 pb-6 flex items-center gap-x-4">
         <div class="h-12 w-12 rounded-full bg-amber-50"></div>
