@@ -67,19 +67,21 @@ const useAPI = (url) => {
 		});
 };
 
-/* Supprime toutes les transactions non récurenctes */
+/* Supprime toutes les transactions non-récurrentes. */
 const nouveauMois = async () => {
-	const toDelete = data.value.filter((t) => t.frequency === -1);
+	const confirmation = window.confirm("Tu es sur le point de supprimer toutes les transactions non-récurrentes. Es-tu sûr de vouloir continuer?");
+	if (confirmation) {
+		const toDelete = data.value.filter((t) => t.frequency === -1);
 
-	for (const transaction of toDelete) {
-		try {
-			await fetch(`${url}/${transaction.id}`, { method: "DELETE" });
-			console.log(transaction.id + " supprimé");
-		} catch (err) {
-			console.log("Erreur: " + err + " | " + url);
+		for (const transaction of toDelete) {
+			try {
+				await fetch(`${url}/${transaction.id}`, { method: "DELETE" });
+				useAPI(url);
+			} catch (err) {
+				console.log("Erreur: " + err + " | " + url);
+			}
 		}
-	}
-	useAPI(url);
+	} else return;
 };
 
 /* Détermine quel ID est sélectionné pour l'édition de la rangé dans un des tableaux */
@@ -109,10 +111,10 @@ const ajoutTransaction = async (load) => {
 
 		const newRow = await response.json();
 		currentEditing.value = newRow;
+		useAPI(url);
 	} catch (err) {
 		console.error("Error:", err);
 	}
-	useAPI(url);
 };
 
 /* Modifie la transaction selon la rangé qui a été selectionné avec le editThisRow() */
@@ -131,20 +133,20 @@ const updateTransaction = async (load) => {
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
+		useAPI(url);
 	} catch (err) {
 		console.error("Error:", err);
 	}
-	useAPI(url);
 };
 
 /* Supprime les transactions cliquées en fonction de leur ID */
 const deleteTransaction = async (id) => {
 	try {
 		await fetch(`${url}/${id}`, { method: "DELETE" });
+		useAPI(url);
 	} catch (err) {
 		console.log("Erreur: " + err + " | " + url);
 	}
-	useAPI(url);
 };
 
 /* Lors du chargement de la page, la fonction useAPI() est appelé automatiquement pour peupler les tableaux */
