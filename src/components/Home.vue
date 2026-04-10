@@ -40,8 +40,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 100 100">
             <path
               d="M65.156 4.42c-8.327 0-15.13 6.855-15.13 15.202s6.803 15.165 15.13 15.165c7.017 0 12.924-4.863 14.626-11.382h13.843a3.798 3.798 0 0 0 3.791-3.805 3.798 3.798 0 0 0-3.79-3.8h-13.86C78.053 9.294 72.16 4.42 65.156 4.42zM6.391 15.8a3.798 3.798 0 0 0-3.79 3.805 3.798 3.798 0 0 0 3.79 3.8h36.397c-.21-1.234-.348-2.493-.348-3.783 0-1.304.134-2.575.348-3.821zm28.47 18.987c-7.018 0-12.92 4.89-14.619 11.418H6.392a3.783 3.783 0 0 0-.363 0 3.801 3.801 0 0 0-3.52 4.062 3.798 3.798 0 0 0 3.882 3.535H20.25c1.71 6.511 7.604 11.382 14.61 11.382 8.328 0 15.167-6.848 15.167-15.195 0-8.347-6.84-15.202-15.166-15.202zm22.383 11.418c.21 1.234.347 2.494.347 3.784 0 1.3-.134 2.57-.347 3.813h36.381a3.795 3.795 0 0 0 3.874-3.714 3.796 3.796 0 0 0-3.874-3.883H57.244zm7.912 18.979c-8.327 0-15.13 6.855-15.13 15.202S56.83 95.58 65.157 95.58c7.007 0 12.907-4.87 14.618-11.382h13.851a3.796 3.796 0 0 0 3.706-3.883 3.795 3.795 0 0 0-3.706-3.714H79.782c-1.701-6.527-7.608-11.418-14.626-11.418zM6.029 76.602a3.801 3.801 0 0 0-3.52 4.062 3.798 3.798 0 0 0 3.882 3.535h36.412a22.541 22.541 0 0 1-.348-3.813c0-1.29.138-2.55.348-3.784H6.39a3.783 3.783 0 0 0-.362 0z"
-              data-original="#000000"
-            />
+              data-original="#000000" />
           </svg>
           <h3 class="text-lg font-semibold mb-3">Budgets intelligents</h3>
           <p class="text-gray-200 group-hover:text-gray-700 text-md leading-relaxed">Créez des budgets flexibles qui s'adaptent à votre mode de vie, facilitant le suivi de vos objectifs.</p>
@@ -76,8 +75,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 512 512">
             <path
               d="M495.984 252.588c-17.119-14.109-44.177-15.319-61.936 3.74l-44.087 47.327c-5.7-18.319-22.809-31.658-42.977-31.658h-78.675c-5.97 0-7.969-2.28-18.339-10.269-39.538-34.468-98.924-34.358-138.342.33L82.71 287.516c-12.999-6.88-28.178-7.05-41.248-.52L8.294 303.575c-7.41 3.71-10.409 12.719-6.71 20.129l89.995 179.989c3.71 7.41 12.719 10.409 20.129 6.71l33.168-16.589c16.349-8.169 25.448-24.849 24.858-41.827h177.249c32.868 0 64.276-15.699 83.995-41.997l72.006-96.014c13.969-18.61 11.759-45.899-7-61.388zM131.456 466.985l-19.749 9.879-76.585-153.16 19.759-9.879c7.41-3.7 16.409-.71 20.119 6.71l63.166 126.332c3.7 7.409.7 16.408-6.71 20.118zm347.529-171.009L406.98 391.99c-14.089 18.789-36.518 29.998-59.996 29.998H159.265l-56.207-112.423 28.388-24.988c28.248-24.849 70.846-24.849 99.094 0 16.639 14.649 26.988 17.419 37.768 17.419h78.675c8.27 0 14.999 6.73 14.999 14.999s-6.73 14.999-14.999 14.999h-76.605c-8.28 0-14.999 6.72-14.999 14.999s6.72 14.999 14.999 14.999h86.655c12.449 0 24.449-5.22 32.928-14.329l66.036-70.886c6.04-6.48 15.299-5.94 20.979-.97 5.939 5.199 6.58 14.089 2.009 20.169zm-163.6-193.609c10.269-10.769 16.599-25.328 16.599-41.358 0-33.018-26.678-60.996-59.996-60.996-33.068 0-60.996 27.928-60.996 60.996 0 15.539 6.09 30.208 17.149 41.478-27.428 15.379-47.147 44.897-47.147 79.515v14.999c0 8.279 6.72 14.999 14.999 14.999h150.991c8.279 0 14.999-6.72 14.999-14.999v-14.999c-.001-33.938-18.668-63.916-46.598-79.635zm-43.397-72.355c16.259 0 29.998 14.199 29.998 30.998 0 16.539-13.459 29.998-29.998 29.998-16.799 0-30.998-13.739-30.998-29.998 0-16.509 14.489-30.998 30.998-30.998zm-60.996 151.99c0-33.068 27.928-60.996 60.996-60.996 33.078 0 59.996 27.358 59.996 60.996H210.992z"
-              data-original="#000000"
-            />
+              data-original="#000000" />
           </svg>
           <h3 class="text-lg font-semibold mb-3">Paiements planifiés</h3>
           <p class="text-gray-200 group-hover:text-gray-700 text-md leading-relaxed">Ne manquez plus jamais une facture grâce aux paiements programmés et aux rappels intelligents pour les dépenses à venir.</p>
@@ -87,8 +85,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-6 inline-block" viewBox="0 0 512 512">
             <path
               d="M451 257v215c0 22.5-14.1 40-32.1 40H375c-18 0-32.1-17.6-32.1-40V257c0-22.5 14.1-40 32.1-40h43.9c17.9 0 32.1 17.6 32.1 40zm.7-126.1c-3 2.1-6.9 2.2-10.1.3l-30-18C362.2 195 292.5 272 157.9 272c-28.4 0-59.7-3.4-94.3-11-5-1.1-8.2-6-7.2-11.1 1-4.6 5.2-7.7 9.9-7.3 8.4.7 203.6 13.8 285.6-166.7L321.2 61c-4.6-2.2-6.6-7.8-4.4-12.4 1-2.1 2.7-3.7 4.8-4.6L423.5.7c4.7-2 10.2.2 12.2 4.9.3.7.5 1.4.6 2.1l19.3 113.9c.7 3.6-.9 7.3-3.9 9.3zM310.1 336v136c0 22.5-14.1 40-32.1 40h-44c-18 0-32.1-17.6-32.1-40V336c0-22.5 14.1-40 32.1-40h43.9c18.1-.1 32.2 17.5 32.2 40zm-137.8 65.8V472c0 22.4-14.1 40-32.1 40h-44c-18 0-32.1-17.6-32.1-40v-70.2c0-22.5 14.1-40 32.1-40h43.9c18.1-.1 32.2 17.5 32.2 40z"
-              data-original="#000000"
-            />
+              data-original="#000000" />
           </svg>
           <h3 class="text-lg font-semibold mb-3">Analyses de trésorerie</h3>
           <p class="text-gray-200 group-hover:text-gray-700 text-md leading-relaxed">Comprenez vos revenus et dépenses grâce à des rapports visuels et des analyses prédictives.</p>
@@ -123,8 +120,7 @@
             <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="30" clip-path="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
               <path
                 d="M226 15v60c0 16.568-13.432 30-30 30H76c-16.568 0-30-13.432-30-30V15Zm-45 165c0-24.853-20.147-45-45-45s-45 20.147-45 45 20.147 45 45 45 45-20.147 45-45ZM466 15v60c0 16.568-13.432 30-30 30H316c-16.568 0-30-13.432-30-30V15Zm-45 165c0-24.853-20.147-45-45-45s-45 20.147-45 45 20.147 45 45 45 45-20.147 45-45Zm-75 167v-50.294L286 347h-60.002L166 296.706V347h-15c-41.421 0-75 33.579-75 75s33.579 75 75 75h210c41.421 0 75-33.579 75-75s-33.579-75-75-75Zm-105 75h30m-90 0h30m90 0h30"
-                data-original="#000000"
-              />
+                data-original="#000000" />
             </g>
           </svg>
           <h3 class="text-lg font-semibold mb-3">API et intégrations</h3>
@@ -134,6 +130,7 @@
     </div>
   </div>
   <!-- Section plans  -->
+
 
   <div class="mx-auto pt-14 max-w-4xl text-center">
     <h2 class="text-base/7 font-semibold text-secondaire">Tarifs</h2>
@@ -233,21 +230,33 @@
       <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-white sm:text-6xl">Rejoingnez le mouvement</p>
     </div>
     <div class="flex items-center mt-20 justify-around m-auto w-full">
-      <!-- card-->
-      <div class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-full max-w-md flex flex-col gap-6">
-        <div>
-          <h2 class="text-2xl font-bold mb-1">Connexion</h2>
-          <p class="text-text-secondaire text-sm">Entrez vos informations ci-dessous.</p>
-        </div>
+      
+    <!-- card-->
+    <div class="bg-card p-8 rounded-2xl shadow-xl border border-white/5 w-full max-w-md flex flex-col gap-6">
+      <div>
+        <h2 class="text-2xl font-bold mb-1">Connexion</h2>
+        <p class="text-text-secondaire text-sm">
+          Entrez vos informations ci-dessous.
+        </p>
+      </div>
 
-        <!-- input -->
-        <div class="flex flex-col gap-4 z-50">
-          <input v-model="email" type="email" placeholder="Adresse email" class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+      <!-- input -->
+      <div class="flex flex-col gap-4 z-50">
+        <input v-model="email" type="email" placeholder="Adresse email"
+          class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
 
-          <div class="flex gap-2">
-            <input v-model="password" :type="showPassword ? 'password' : 'text'" placeholder="Mot de passe" class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
-            <button type="button" @click="togglePasswordShow" class="px-4 w-fit rounded-md bg-principale hover:opacity-80">👁</button>
-          </div>
+        <div class="flex gap-2">
+          <input v-model="password" :type="showPassword ? 'password' : 'text'" placeholder="Mot de passe"
+            class="w-full bg-input-bg border border-input-border text-text placeholder-text-secondaire px-3.5 py-2.5 rounded-xl outline-none transition-all duration-300 focus:border-secondaire focus:ring-1 focus:ring-secondaire" />
+          <button type="button" @click="togglePasswordShow"
+            class="px-4 w-fit rounded-md bg-principale hover:opacity-80">
+            <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              class="bi bi-eye">
+              <path
+                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+            </svg>
+          </button>
         </div>
 
         <!-- boutons -->

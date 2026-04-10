@@ -276,12 +276,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 
-let user = JSON.parse(localStorage.getItem("user"));
+let user = JSON.parse(localStorage.getItem("user"))
+let newUser = ref(null)
 let userId = ref(user.id)
-
 let showPassword = ref(true)
 
 const togglePasswordShow = () => {
@@ -309,17 +309,22 @@ const fetchUser = async () => {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        newUser.value = data
+
         userData.value.firstName = data.firstName
         userData.value.lastName = data.lastName
         userData.value.email = data.email
         userData.value.birthDate = data.birthDate
         userData.value.password = data.password
-        console.log(userData)
+
+        localStorage.setItem("user", JSON.stringify(newUser.value));
+
+        window.dispatchEvent(new Event("userUpdated"));
+
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
 }
-
 
 const userAdresseOne = ref({
     streetNumber: "",
@@ -356,8 +361,6 @@ const bankDetail = ref({
 const setData = (target, data) => {
     target.value = { ...data };
 }
-
-
 
 const fetchUserAdresse = async () => {
     try {
@@ -452,7 +455,6 @@ const delDetailFunction = async (type) => {
 
 }
 
-
 const delAdressFunction = async (type) => {
 
     try {
@@ -499,8 +501,6 @@ const delAdressFunction = async (type) => {
 
 }
 
-
-
 const putFunction = async (url, dataToSend) => {
     try {
         const response = await fetch(url, {
@@ -510,12 +510,11 @@ const putFunction = async (url, dataToSend) => {
             },
             body: JSON.stringify(dataToSend.value),
         });
+
+        fetchUser();
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        const data = await response.json();
-        console.log('Success:', data);
 
     } catch (err) {
         console.error('Error:', err);
@@ -527,13 +526,15 @@ const handleSubmit = () => {
     putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/addresses`, userAdresseOne);
     putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/addresses`, userAdresseTwo);
     putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/banking-details`, bankDetail);
-    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/school-details`, schoolDetail);
+    putFunction(`https://money-pie-1.fly.dev/api/v1/users/${userId.value}/school-details`, schoolDetail)
 
 
     toggleEdit();
     if (showPassword.value === false) {
         togglePasswordShow()
     }
+
+
 }
 
 onMounted(() => {
@@ -541,7 +542,6 @@ onMounted(() => {
     fetchUserAdresse();
     fetchUserDetails("school-details");
     fetchUserDetails("banking-details");
-
 })
 
 </script>
