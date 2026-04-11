@@ -3,16 +3,11 @@ import InscriptionCard from "./inscriptionCard.vue";
 </script>
 
 <template>
-  <div
-    class="relative isolate px-6 pt-14 lg:px-8 h-[80vh] flex items-center justify-center flex-col"
-  >
-    <!-- BLOB TOP -->
-    <div
-      aria-hidden="true"
-      class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-    >
-      <div
-        style="
+    <div class="relative isolate px-6 pt-14 lg:px-8 h-[80vh] flex items-center justify-center flex-col">
+        <!-- BLOB TOP -->
+        <div aria-hidden="true"
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+            <div style="
           clip-path: polygon(
             74.1% 44.1%,
             100% 61.6%,
@@ -31,29 +26,23 @@ import InscriptionCard from "./inscriptionCard.vue";
             76.1% 97.7%,
             74.1% 44.1%
           );
-        "
-        class="relative left-[calc(50%-11rem)] aspect-1155/678 w-xl rotate-30 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%-30rem)] sm:w-6xl"
-      ></div>
-    </div>
+        " class="relative left-[calc(50%-11rem)] aspect-1155/678 w-xl rotate-30 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%-30rem)] sm:w-6xl">
+            </div>
+        </div>
 
-    <!-- card-->
+        <!-- card-->
 
-    <InscriptionCard />
-    <p class="mt-2">Déjà inscrit ?</p>
-    <RouterLink
-      to="/connexion"
-      class="hover:cursor-pointer text-principale hover:text-secondaire transition-all duration-300"
-    >
-      Connectez-vous
-    </RouterLink>
+        <InscriptionCard />
+        <p class="mt-2">Déjà inscrit ?</p>
+        <RouterLink to="/connexion"
+            class="hover:cursor-pointer text-principale hover:text-secondaire transition-all duration-300">
+            Connectez-vous
+        </RouterLink>
 
-    <!-- BLOB BOTTOM -->
-    <div
-      aria-hidden="true"
-      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-    >
-      <div
-        style="
+        <!-- BLOB BOTTOM -->
+        <div aria-hidden="true"
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+            <div style="
           clip-path: polygon(
             74.1% 44.1%,
             100% 61.6%,
@@ -72,11 +61,10 @@ import InscriptionCard from "./inscriptionCard.vue";
             76.1% 97.7%,
             74.1% 44.1%
           );
-        "
-        class="relative left-[calc(50%+3rem)] aspect-1155/678 w-xl -translate-x-1/2 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%+36rem)] sm:w-6xl"
-      ></div>
+        " class="relative left-[calc(50%+3rem)] aspect-1155/678 w-xl -translate-x-1/2 bg-linear-to-tr from-principale to-secondaire opacity-30 sm:left-[calc(50%+36rem)] sm:w-6xl">
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <style></style>
