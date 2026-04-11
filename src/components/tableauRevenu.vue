@@ -16,7 +16,9 @@
 				</thead>
 
 				<tbody>
-					<tr v-for="transaction in props.data" :key="transaction.id" @click="transaction.id !== localEditing.id && editThisRow(transaction.id)" class="border-b-2 border-b-input-border">
+					<tr v-for="transaction in props.data" :key="transaction.id"
+						@click="transaction.id !== localEditing.id && editThisRow(transaction.id)"
+						class="border-b-2 border-b-input-border">
 						<!-- MODE AFFICHAGE -->
 						<template v-if="transaction.id !== localEditing.id">
 							<td class="w-32 pr-5 py-2 md:text-lg truncate min-w-0">
@@ -30,19 +32,24 @@
 							<td class="w-32 py-2 md:text-lg min-w-0">{{ transaction.amount }}$</td>
 
 							<td class="w-24 py-2 min-w-0">
-								<i v-if="transaction.frequency != -1" class="bx bxs-check-square md:text-2xl text-secondaire" alt="Icône de case à cocher rempli"></i>
-								<i v-else class="bx bx-square md:text-2xl text-secondaire" alt="Icône de case à cocher vide"></i>
+								<i v-if="transaction.frequency != -1"
+									class="bx bxs-check-square md:text-2xl text-secondaire"
+									alt="Icône de case à cocher rempli"></i>
+								<i v-else class="bx bx-square md:text-2xl text-secondaire"
+									alt="Icône de case à cocher vide"></i>
 							</td>
 
 							<td class="w-16 py-2">
-								<i class="bx bxs-trash-alt text-principale text-2xl cursor-pointer" @click.stop="del(transaction.id)" alt="Icône de poubelle"></i>
+								<i class="bx bxs-trash-alt text-principale text-2xl cursor-pointer"
+									@click.stop="del(transaction.id)" alt="Icône de poubelle"></i>
 							</td>
 						</template>
 
 						<!-- MODE ÉDITION -->
 						<template v-else>
 							<td class="w-32 pr-5 py-2 min-w-0 md:text-lg" @click.stop>
-								<input type="date" v-model="localEditing.startDate" class="w-full min-w-0 bg-white text-background" />
+								<input type="date" v-model="localEditing.startDate"
+									class="w-full min-w-0 bg-white text-background" />
 							</td>
 
 							<td class="w-48 py-2 min-w-0 md:text-lg" @click.stop>
@@ -50,7 +57,8 @@
 							</td>
 
 							<td class="w-32 py-2 min-w-0 md:text-lg" @click.stop>
-								<input v-model="localEditing.amount" type="number" class="w-full min-w-0 bg-transparent" />
+								<input v-model="localEditing.amount" type="number"
+									class="w-full min-w-0 bg-transparent" />
 							</td>
 
 							<td class="w-24 py-2 min-w-0 text-center" @click.stop>
@@ -66,14 +74,16 @@
 
 							<td class="w-16 py-2">
 								<button @click.stop="save()">
-									<i class="bx bxs-check-shield text-green-500 text-2xl cursor-pointer" alt="Icône de sauvegarde"></i>
+									<i class="bx bxs-check-shield text-green-500 text-2xl cursor-pointer"
+										alt="Icône de sauvegarde"></i>
 								</button>
 							</td>
 						</template>
 					</tr>
 
 					<!-- LIGNE AJOUT -->
-					<tr class="border-b-2 border-b-input-border cursor-pointer hover:shadow-[0_0_15px_#096cfd66]" @click="ajout()">
+					<tr class="border-b-2 border-b-input-border cursor-pointer hover:shadow-[0_0_15px_#096cfd66]"
+						@click="ajout()">
 						<td class="w-32 py-2 font-bold text-secondaire">Clique pour ajouter</td>
 						<td class="w-48 py-2"></td>
 						<td class="w-32 py-2"></td>
